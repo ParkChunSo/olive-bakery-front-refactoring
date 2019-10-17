@@ -19,10 +19,6 @@ import storage from "./storage";
 import * as alertActions from "./store/modules/alert";
 import styles from "./styles/common"
 
-
-
-
-
 class App extends Component {
     state = {
         open: true
