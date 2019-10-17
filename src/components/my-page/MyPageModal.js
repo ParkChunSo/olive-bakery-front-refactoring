@@ -1,20 +1,21 @@
 import React from 'react';
-import CustomInput from "../../react-kit/components/CustomInput/CustomInput.jsx";
+import axios from "axios";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from "../../react-kit/components/CustomButtons/Button.jsx";
-import axios from "axios";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import People from "@material-ui/icons/People";
 import Lock from "@material-ui/icons/LockOutlined";
 import Phone from "@material-ui/icons/Phone";
-import storage from "../../storage";
-import withStyles from "@material-ui/core/styles/withStyles";
-import checkStyles from "../../react-kit/assets/jss/material-kit-react/customCheckboxRadioSwitch";
 
-import * as api from "../../common/Api"
+import CustomInput from "../common/CustomInput";
+import Button from "../common/Button.jsx";
+
+import withStyles from "@material-ui/core/styles/withStyles";
+import checkStyles from "../../styles/customCheckboxRadioSwitch";
+
+import * as api from "../common/Api"
 
 let styles = {...checkStyles};
 

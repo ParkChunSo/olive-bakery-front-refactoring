@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -7,11 +7,10 @@ import Select from '@material-ui/core/Select';
 import AdminChart from "./AdminChart"
 import AdminReservation from "./AdminReservation"
 import SelectDateBar from './SelectDateBar';
-import { Button } from '@material-ui/core';
 
-import * as api from "../../../common/Api"
-import Title from "../../../common/Title"
-import './AdminDashboard.css'
+import Button from '../common/Button';
+
+import * as api from "../common/Api"
 
 
 class AdminDashboard extends Component{
@@ -175,12 +174,12 @@ class AdminDashboard extends Component{
                     </div>
                     <div>
                         <div className= 'wrapper'>
-                            <div>
+                            {/* <div>
                                 <Title
                                     title="예약확인"
                                     subTitle="날짜별 예약을 확인합니다."
                                 />
-                            </div>
+                            </div> */}
                             <FormControl variant="outlined" >   
                                 <InputLabel  htmlFor="outlined-age-simple">
                                     일

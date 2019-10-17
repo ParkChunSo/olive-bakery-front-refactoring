@@ -3,7 +3,7 @@ import axios from "axios";
 
 const token = storage.get('token');
 const url = "http://15.164.57.47:8080/olive/";
-// const url = "http://172.30.1.39:8080/olive/";
+// const url = "http://localhost:8080/olive/";
 
 ////////////////////// 사용자 API //////////////////////
 
@@ -164,13 +164,16 @@ export function getNotice(){
 }
 
 // 게시물 저장
-export function savePost(boardId, userId, content, userName){
-    return axios.post(url + 'board/comment', {headers: {'Content-type': 'application/json','Authorization': token},
-        "boardId": boardId,
-        "content": content,
-        "updateTime": "null",
-        "userId": userId,
-        "userName": userName
+export function savePost(type, title, context, isSecret, isNotice){
+    return axios.post(url + `board`, {
+        "boardType": type,
+        "boardId": 0,
+        "context": context,
+        "isNotice": isNotice,
+        "isSecret": isSecret,
+        "title": title},
+        {headers: {'Content-type': 'application/json','Authorization': token}
+        
     });
 }
 

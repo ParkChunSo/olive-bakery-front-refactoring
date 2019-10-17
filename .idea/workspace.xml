@@ -2,11 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdf84716-d57e-41cd-aea1-95a8ad91c3ee" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/admin-dashboard/OnlineSales.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/board/Board.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/BoardModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/common/CreateBoardModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/bread/AdminBoard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin-board/AdminBoard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin-board/AdminBoard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin-dashboard/AdminDashboard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin-dashboard/AdminDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin-dashboard/AdminDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin-dashboard/SelectDateBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin-dashboard/SelectDateBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/board/AdminBoard.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/common/Api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sign/SignUpForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sign/SignUpForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/my-page/AdminBoard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/my-page/MyPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/my-page/MyPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/my-page/MyPageModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/my-page/MyPageModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,7 +33,7 @@
               <entry file="file://$PROJECT_DIR$/src/components/common/Api.js">
                 <provider selected="true" editor-type-id="text-editor">
                   <state relative-caret-position="357">
-                    <caret line="214" column="10" lean-forward="true" selection-start-line="214" selection-start-column="10" selection-end-line="214" selection-end-column="10" />
+                    <caret line="217" column="10" lean-forward="true" selection-start-line="217" selection-start-column="10" selection-end-line="217" selection-end-column="10" />
                     <folding>
                       <element signature="e#0#36#0" expanded="true" />
                     </folding>
@@ -109,8 +118,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="80" column="46" lean-forward="true" selection-start-line="80" selection-start-column="46" selection-end-line="80" selection-end-column="46" />
+            <state relative-caret-position="237">
+              <caret line="90" column="78" lean-forward="true" selection-start-line="90" selection-start-column="78" selection-end-line="90" selection-end-column="78" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -315,7 +324,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571345414918" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571345723727" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -358,15 +367,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571325140947</updated>
-      <workItem from="1571325144925" duration="19074000" />
+      <workItem from="1571325144925" duration="19250000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19074000" />
+    <option name="totallyTimeSpent" value="19250000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
@@ -791,7 +800,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/common/Api.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="214" column="10" lean-forward="true" selection-start-line="214" selection-start-column="10" selection-end-line="214" selection-end-column="10" />
+          <caret line="217" column="10" lean-forward="true" selection-start-line="217" selection-start-column="10" selection-end-line="217" selection-end-column="10" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
@@ -834,8 +843,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="80" column="46" lean-forward="true" selection-start-line="80" selection-start-column="46" selection-end-line="80" selection-end-column="46" />
+        <state relative-caret-position="237">
+          <caret line="90" column="78" lean-forward="true" selection-start-line="90" selection-start-column="78" selection-end-line="90" selection-end-column="78" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
