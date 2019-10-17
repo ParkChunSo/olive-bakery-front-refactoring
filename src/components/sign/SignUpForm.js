@@ -6,15 +6,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "../common/Button.jsx";
-import axios from "axios";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 import Lock from "@material-ui/icons/LockOutlined";
 import Phone from "@material-ui/icons/Phone";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import checkStyles from "../../styles/customCheckboxRadioSwitch";
+import Radio from "@material-ui/core/Radio";
+import FiberManualRecord from "@material-ui/icons/FiberManualRecord"
+import CustomDropdown from "../common/CustomDropdown"
+import withStyles from "@material-ui/core/styles/withStyles";
+import classNames from "classnames";
 import * as api from "../common/Api"
 
-export default class SignUpForm extends React.Component {
+class SignUpForm extends React.Component {
     state = {
         open: false,
         password: "",
@@ -22,9 +28,12 @@ export default class SignUpForm extends React.Component {
         name: "",
         email: "",
         phoneNumber: "",
-        age: 0,
-        male: true
+        age: "20",
+        male: "Man",
+        buttonText: "나이"
     };
+
+    genderState = ['Man', 'Woman'];
 
     handleChange = (e) => {
         this.setState({
@@ -40,6 +49,21 @@ export default class SignUpForm extends React.Component {
         this.setState({ open: false });
     };
 
+    handleChangeGenderState = (e) => {
+        console.log(this.state.male==="Man");
+        this.setState({
+            male: this.genderState.filter(state => state===e.target.id)[0]
+        });
+    };
+
+    handleChangeAge = (age) => {
+        console.log(age);
+        this.setState({
+            buttonText: age,
+            age: age
+        });
+    };
+
     postSignUp = () => {
         let response = api.signUpClient(
             {
@@ -48,18 +72,26 @@ export default class SignUpForm extends React.Component {
                 "phoneNumber": this.state.phoneNumber,
                 "pw": this.state.password,
                 "age": this.state.age,
-                "male": this.state.male
+                "male": this.state.male==="Man"
             }
         );
         response.then(response => {
             console.log(response);
             if(response.status===200){
                 this.props.addAlert('회원가입이 완료되었습니다');
+                this.setState({
+                   open: false 
+                });
             }
         });
     };
 
     render() {
+        const {classes} = this.props;
+        const wrapperDiv = classNames(
+            classes.checkboxAndRadio,
+            classes.checkboxAndRadioHorizontal
+        );
         return (
             <React.Fragment>
                 <Button simple color="success" size="lg" onClick={this.handleClickOpen}>
@@ -109,6 +141,48 @@ export default class SignUpForm extends React.Component {
                                 )
                             }}
                         />
+                        <CustomDropdown
+                            buttonText={this.state.buttonText}
+                            dropdownList={[
+                                "10",
+                                "20",
+                                "30",
+                                "40",
+                                "50",
+                            ]}
+                            onClick = {this.handleChangeAge}
+                        />
+                        {
+                            this.genderState.map((state, index) => (
+                                <React.Fragment key={index}>
+                                    <div className={wrapperDiv}>
+                                        <FormControlLabel
+                                            control={
+                                                <Radio
+                                                    onChange={this.handleChangeGenderState}
+                                                    checked={this.state.male===state}
+                                                    value={state}
+                                                    id={state}
+                                                    icon={
+                                                        <FiberManualRecord
+                                                            className={classes.radioUnchecked}
+                                                        />
+                                                    }
+                                                    checkedIcon={
+                                                        <FiberManualRecord className={classes.radioChecked} />
+                                                    }
+                                                    classes={{
+                                                        checked: classes.radio
+                                                    }}
+                                                />
+                                            }
+                                            classes={{ label: classes.label }}
+                                            label={state}
+                                        />
+                                    </div>
+                                </React.Fragment>
+                            ))
+                        }
                         <CustomInput
                             labelText="Phone Number"
                             id="phoneNumber"
@@ -177,3 +251,5 @@ export default class SignUpForm extends React.Component {
         );
     }
 }
+
+export default withStyles(checkStyles)(SignUpForm);
