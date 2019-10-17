@@ -5,41 +5,74 @@ const token = storage.get('token');
 const url = "http://15.164.57.47:8080/olive/";
 // const url = "http://172.30.1.39:8080/olive/";
 
-////////////////////// 사용자 프로필 관련 //////////////////////
+////////////////////// 사용자 API //////////////////////
 
-export async function getUserData(){
-    const response = await axios.get(url + `sign/check`, { headers: {'Authorization': token}});
-    if(response.status===200){
-        return response.data;
-    }
-    return null;
-
+// 로그인
+export function login(userId, userPw){
+    return axios.post(url + 'sign', {headers: {'Content-type': 'application/json'},
+        "id": userId,
+        "pw": userPw,
+    });
 };
 
+// 회원가입(사용자)
+export function signUpClient(userData){
+    return axios.post(url + 'sign/client', {headers: {'Content-type': 'application/json'},
+        "age": userData.age,
+        "id": userData.id,
+        "male": userData.male,
+        "name": userData.name,
+        "phoneNumber": userData.phoneNumber,
+        "pw": userData.pw
+    });
+};
+
+// 회원가입(관리자)
+export function signUpAdmin(userData){
+    return axios.post(url + 'sign/admin', {headers: {'Content-type': 'application/json','Authorization': token},
+        "age": userData.age,
+        "id": userData.id,
+        "male": userData.male,
+        "name": userData.name,
+        "phoneNumber": userData.phoneNumber,
+        "pw": userData.pw
+    });
+};
+
+// 회원정보 조회(사용자)
+export function getUserData(){
+    return axios.get(url + `sign/check`, { headers: {'Authorization': token}});
+};
+
+// 회원정보 조회(관리자)
+export function getUserDataAdmin(userId){
+    return axios.get(url + `sign/${userId}`, { headers: {'Authorization': token}});
+};
+
+// 회원정보 수정
 export function putUserData(userData){
-    const response = axios.put(url + 'sign', {headers: { 'Content-type': 'application/json', 'Authorization': token},
+    return axios.put(url + 'sign', {headers: { 'Content-type': 'application/json', 'Authorization': token},
         "age": userData.age,
         "id": userData.id,
         "male": userData.male,
         "name": userData.name,
         "phoneNumber": userData.phoneNumber,
         "pw": userData.password });
-    if(response.status===200){
-        return true;
-    }
-    return false;
 };
 
-export async function getReservationDataByUser(type){
-    const response = await axios.get(url + `reservation/user/type/${type}`
+// 회원 예약 정보 조회
+export function getReservationDataByUser(type){
+    return axios.get(url + `reservation/user/type/${type}`
                     , { headers: { 'Content-type': 'application/json', 'Authorization': token}});
-        if(response.status === 200){
-            return response.data;
-        }
-        return null;
+};
+
+// 회원 삭제
+export function deleteUser(userId, userPw){
+    return axios.delete(url + `sign`,{ "id": userId, "pw": userPw
+    , headers: { 'Content-type': 'application/json', 'Authorization': token}});
 }
 
-////////////////////// 빵 관련 //////////////////////
+////////////////////// 빵 API //////////////////////
 
 // 모든 빵 정보 가져오기
 export async function getAllBreads(){
@@ -52,6 +85,22 @@ export async function getAllBreads(){
     }
 }
 
+//재료와 원산지 가져오기
+export async function getIngrediants(){
+    const response = await axios.get(url + 'bread/ingredients',{headers: {"Authorization": token}})
+    if(response.status === 200){
+        return response.data;
+    }
+    else{
+        return null;
+    }
+}
+
+// 빵 이미지 가져오기
+export function getTodayBread(){
+    return axios.get(url + 'bread/today');
+}
+
 //빵 저장
 export function saveBread(breadData, file){
     const formData = new FormData();
@@ -62,17 +111,6 @@ export function saveBread(breadData, file){
     
     return response.status
     
-}
-
-//재료와 원산지 가져오기
-export async function getIngrediants(){
-    const response = await axios.get(url + 'bread/ingredients',{headers: {"Authorization": token}})
-    if(response.status === 200){
-        return response.data;
-    }
-    else{
-        return null;
-    }
 }
 
 // 빵 정보 수정
@@ -108,11 +146,51 @@ export async function deleteBread(breadId, isDelete){
     return response.status;
 }
 
-////////////////////// 게시판 관련 //////////////////////
+////////////////////// 게시판 API //////////////////////
 
-export function getBoardById(boardId){
-    return axios.get(url + `board/id/${boardId}`, {headers: { 'Authorization': token}})
+// 게시물 리스트 가져오기
+export function getBoardList(type, num){
+    return axios.get(url + `board/${type}/page/${num}`);
 }
+
+// 게시물 상세 조회
+export function getBoardById(boardId){
+    return axios.get(url + `board/id/${boardId}`, {headers: { 'Authorization': token}});
+}
+
+// 공지사항 조회
+export function getNotice(){
+    return axios.get(url + `board/notice`);
+}
+
+// 게시물 저장
+export function savePost(boardId, userId, content, userName){
+    return axios.post(url + 'board/comment', {headers: {'Content-type': 'application/json','Authorization': token},
+        "boardId": boardId,
+        "content": content,
+        "updateTime": "null",
+        "userId": userId,
+        "userName": userName
+    });
+}
+
+// 게시물 수정
+export function updatePost(boardId, title, content, notice, secret){
+    return axios.put(url + 'board', {
+        "boardId": boardId,
+        "context": content,
+        "notice": notice,
+        "secret": secret,
+        "title": title
+    }, {headers: { 'Content-type': 'application/json', 'Authorization': token}});
+}
+
+// 게시물 삭제
+export function deletePost(boardId){
+    return axios.delete(url + `board/id/${boardId}`,{headers: { 'Content-type': 'application/json', 'Authorization': token}});
+}
+
+// 댓글 저장
 export function saveComment(boardId, userId, content, userName){
     return axios.post(url + 'board/comment', {headers: {'Content-type': 'application/json','Authorization': token},
         "boardId": boardId,
@@ -123,14 +201,15 @@ export function saveComment(boardId, userId, content, userName){
     });
 }
 
-////////////////////// 예약 관련 //////////////////////
+
+////////////////////// 예약 API //////////////////////
 
 export function updateReservatioinState(reservationId){
     return axios.put(`http://15.164.57.47:8080/olive/reservation/${reservationId}`
         ,{},{headers: { 'Content-type': 'application/json', 'Authorization': token}});
 }
 
-////////////////////// 그래프 관련 //////////////////////
+////////////////////// 그래프 API //////////////////////
 
 export async function getReservationDataByDate(date){
     const response = await axios.post(url + 'reservation/date', {
