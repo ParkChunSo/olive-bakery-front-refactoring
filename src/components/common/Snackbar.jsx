@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 // @material-ui/icons
 import Close from "@material-ui/icons/Close";
 // core components
-import snackbarContentStyle from "../styles/snackbarContentStyle.jsx";
+import snackbarContentStyle from "../../styles/snackbarContentStyle.jsx";
 
 function Snackbar({ ...props }) {
   const {

@@ -14,7 +14,7 @@ import Card from "./Card.jsx";
 import CardBody from "./CardBody.jsx";
 import CardHeader from "./CardHeader.jsx";
 
-import customTabsStyle from "../styles/customTabsStyle.jsx";
+import customTabsStyle from "../../styles/customTabsStyle.jsx";
 
 class CustomTabs extends React.Component {
   state = {
