@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import logo from 'image/olive.png';
-import Header from "styles/Header.jsx";
-import HeaderLinks from "styles/HeaderLinks.jsx";
+import logo from './image/olive.png';
+import Header from "./styles/Header.jsx";
+import HeaderLinks from "./styles/HeaderLinks.jsx";
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -9,14 +9,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { mainListItems, secondaryListItems } from 'listItems';
+import { mainListItems, secondaryListItems } from './listItems';
 import {Route} from 'react-router-dom';
-import {HomePage, MyPagePage, ProductsPage, SignInPage, AdminProductsPage, AdminBoardPage, AdminUsersPage, AdminReservationPage, BoardPage, AdminDashboardPage} from "router";
-import Alert from "components/Alert";
+import {HomePage, MyPagePage, ProductsPage, SignInPage, AdminProductsPage, AdminBoardPage, AdminUsersPage, AdminReservationPage, BoardPage, AdminDashboardPage} from "./router";
+import Alert from "./components/Alert";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import storage from "storage";
-import * as alertActions from "store/modules/alert";
+import storage from "./storage";
+import * as alertActions from "./store/modules/alert";
 
 const drawerWidth = 300;
 

@@ -8,24 +8,24 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 
 // core components
-import cardBodyStyle from "../styles/cardBodyStyle.jsx";
+import cardFooterStyle from "../../styles/cardFooterStyle.jsx";
 
-function CardBody({ ...props }) {
+function CardFooter({ ...props }) {
   const { classes, className, children, ...rest } = props;
-  const cardBodyClasses = classNames({
-    [classes.cardBody]: true,
+  const cardFooterClasses = classNames({
+    [classes.cardFooter]: true,
     [className]: className !== undefined
   });
   return (
-    <div className={cardBodyClasses} {...rest}>
+    <div className={cardFooterClasses} {...rest}>
       {children}
     </div>
   );
 }
 
-CardBody.propTypes = {
+CardFooter.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string
 };
 
-export default withStyles(cardBodyStyle)(CardBody);
+export default withStyles(cardFooterStyle)(CardFooter);

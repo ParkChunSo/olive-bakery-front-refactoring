@@ -8,11 +8,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
-import tableStyle from "../styles/tableStyle.jsx";
+import tableStyle from "../../styles/tableStyle.jsx";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Check from "@material-ui/icons/Check";
-import checkStyles from "../styles/customCheckboxRadioSwitch";
+import checkStyles from "../../styles/customCheckboxRadioSwitch";
 import classNames from "classnames";
 
 const styles = {...tableStyle, ...checkStyles};
