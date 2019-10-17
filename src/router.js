@@ -6,5 +6,5 @@
 //export { default as AdminBoardPage} from './Admin/AdminBoardPage';
 //export { default as AdminUsersPage} from './Admin/AdminUsersPage';
 //export { default as AdminReservationPage} from './Admin/AdminReservationPage';
-//export { default as BoardPage} from './BoardPage';
-//export { default as AdminDashboardPage} from './Admin/AdminDashboardPage';
+export { default as BoardPage} from './components/board/Board';
+export { default as AdminDashboardPage} from './components/admin-dashboard/AdminDashboard';
