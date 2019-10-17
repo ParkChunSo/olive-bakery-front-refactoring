@@ -1,5 +1,5 @@
 export { default as HomePage } from './components/home/HomePage';
-//export { default as ProductsPage } from './ProductsPage';
+export { default as ProductsPage } from './components/bread/BreadPage';
 export { default as SignInPage } from './components/sign/SignInPage';
 //export { default as MyPagePage } from './MyPagePage';
 //export { default as AdminProductsPage} from './Admin/AdminProductsPage';

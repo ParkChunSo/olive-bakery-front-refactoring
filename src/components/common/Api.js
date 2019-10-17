@@ -108,22 +108,22 @@ export function saveBread(breadData, file){
     formData.append("file", file);
     formData.append('json', json);
     const response = axios.post(url + 'bread', formData, {headers: {"content-type": "multipart/form-data", "Authorization": token}})
-    
+
     return response.status
-    
+
 }
 
 // 빵 정보 수정
 export async function updateBread(breadData, file){
     console.log(file);
-    
+
     const formData = new FormData();
     const json = JSON.stringify(breadData);
     formData.append('json', json);
     if(file !== undefined || file !== null){
         formData.append("file", file);
     }
-    
+
     const response = await axios.put(url + 'bread', formData, {headers: {'Content-type': 'application/json', "Authorization": token}});
     return response.status;
 }
@@ -192,21 +192,31 @@ export function deletePost(boardId){
 
 // 댓글 저장
 export function saveComment(boardId, userId, content, userName){
-    return axios.post(url + 'board/comment', {headers: {'Content-type': 'application/json','Authorization': token},
+    return axios.post(url + 'board/comment',{
         "boardId": boardId,
         "content": content,
         "updateTime": "null",
         "userId": userId,
         "userName": userName
-    });
+    },
+        {headers: {'Content-type': 'application/json','Authorization': token}});
 }
 
 
 ////////////////////// 예약 API //////////////////////
 
 export function updateReservatioinState(reservationId){
-    return axios.put(`http://15.164.57.47:8080/olive/reservation/${reservationId}`
+    return axios.put(url+`reservation/${reservationId}`
         ,{},{headers: { 'Content-type': 'application/json', 'Authorization': token}});
+}
+
+export function saveReservatioin(breadInfo, bringTime, userEmail){
+    return axios.post(url+'reservation'
+        ,{
+            "breadInfo": breadInfo,
+            "bringTime": bringTime,
+            "userEmail": userEmail
+        },{headers: { 'Content-type': 'application/json', 'Authorization': token}});
 }
 
 ////////////////////// 그래프 API //////////////////////

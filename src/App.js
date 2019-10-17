@@ -78,12 +78,14 @@ class App extends Component {
                         />
                         {
                             messages.map((msg, index) => (
+                                msg===""?null:
                                 this.alert(msg, index)
                             ))
                         }
                         <div>
                             <Route exact path="/" component={HomePage}/>
                             <Route exact path="/signin" component={SignInPage}/>
+                            <Route exact path="/products" component={ProductsPage}/>
 
                         </div>
                     </main>
