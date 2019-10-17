@@ -85,7 +85,11 @@ class App extends Component {
                                 this.alert(msg, index)
                             ))
                         }
+                        <div>
+                            <Route exact path="/" component={HomePage}/>
+                            <Route exact path="/signin" component={SignInPage}/>
 
+                        </div>
                     </main>
 
 

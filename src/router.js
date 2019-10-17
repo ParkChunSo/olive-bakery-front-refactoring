@@ -1,6 +1,6 @@
-//export { default as HomePage } from './HomePage';
+export { default as HomePage } from './components/home/HomePage';
 //export { default as ProductsPage } from './ProductsPage';
-//export { default as SignInPage } from './SignInPage';
+export { default as SignInPage } from './components/sign/SignInPage';
 //export { default as MyPagePage } from './MyPagePage';
 //export { default as AdminProductsPage} from './Admin/AdminProductsPage';
 //export { default as AdminBoardPage} from './Admin/AdminBoardPage';
