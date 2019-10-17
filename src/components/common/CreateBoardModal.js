@@ -1,7 +1,4 @@
 import React from 'react';
-import classNames from "classnames";
-import axios from "axios";
-import storage from "../../storage";
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,16 +11,15 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Check from "@material-ui/icons/Check";
 
-import Button from "../common/Button.jsx";
-import CustomInput from "../common/CustomInput.jsx";
+import Button from "./Button.jsx";
+import CustomInput from "./CustomInput.jsx";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import checkStyles from "../../styles/customCheckboxRadioSwitch";
 import customStyles from "../../styles/common";
-import * as api from "../common/Api";
+import * as api from "./Api";
 
 const styles = {...customStyles, ...checkStyles};
-const token = storage.get('token');
 
 class CreateBoardModal extends React.Component {
     state = {
@@ -32,9 +28,6 @@ class CreateBoardModal extends React.Component {
         isNotice: false,
         isSecret: false
     };
-    componentDidMount() {
-        this.email = storage.get('email');
-    }
 
     handleChange = (e) => {
         this.setState({

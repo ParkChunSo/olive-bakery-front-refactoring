@@ -6,8 +6,8 @@ import Pagination from "../common/Pagination";
 import CustomTabs from "../common/CustomTabs";
 import Table from "../common/Table";
 
-import BoardModal from "./BoardModal";
-import CreateBoardModal from "./CreateBoardModal";
+import BoardModal from "../common/BoardModal";
+import CreateBoardModal from "../common/CreateBoardModal";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import checkStyles from "../../styles/customCheckboxRadioSwitch";
@@ -248,8 +248,8 @@ class Board extends React.Component {
     };
 
 
-    handleClickOpen = async (id, type) => {
-        await api.getBoardById(id).then(response => {
+    handleClickOpen = (id, type) => {
+        api.getBoardById(id).then(response => {
                 this.setState({
                     selectedItem: {
                         posts: {
@@ -340,9 +340,6 @@ class Board extends React.Component {
                                         type="board"
                                     />
                                     <div>
-                                        {pageNum}페이지
-                                    </div>
-                                    <div>
                                         <Button color="primary" onClick={this.toggleFormModal} simple size="lg">
                                             게시물 추가
                                         </Button>
@@ -371,9 +368,6 @@ class Board extends React.Component {
                                         color="info"
                                         type="qna"
                                     />
-                                    <div>
-                                        {pageNum}페이지
-                                    </div>
                                     <div>
                                         <Button color="primary" onClick={this.toggleFormModal} simple size="lg">
                                             질문하기

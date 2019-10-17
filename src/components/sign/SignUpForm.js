@@ -1,68 +1,29 @@
 import React from 'react';
-import axios from "axios";
+import CustomInput from "../common/CustomInput.jsx";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from "../common/Button.jsx";
+import axios from "axios";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 import Lock from "@material-ui/icons/LockOutlined";
 import Phone from "@material-ui/icons/Phone";
-
-import CustomInput from "../common/CustomInput";
-import Button from "../common/Button.jsx";
-
-import withStyles from "@material-ui/core/styles/withStyles";
-import checkStyles from "../../styles/customCheckboxRadioSwitch";
-
 import * as api from "../common/Api"
 
-let styles = {...checkStyles};
-
-class MyPageModal extends React.Component {
+export default class SignUpForm extends React.Component {
     state = {
+        open: false,
         password: "",
         confirmPassword: "",
         name: "",
+        email: "",
         phoneNumber: "",
-        male: true,
-        age: 0
-    };
-
-    componentDidMount(){
-        this.getUserData();
-    }
-
-    getUserData = async () => {
-        let userData = await api.getUserData();
-        if(userData === undefined || userData === null || userData === ""){
-            userData = {};
-        }
-
-        this.setState({
-            id: userData.id,
-            name: userData.name,
-            phoneNumber: userData.phoneNumber,
-            male: userData.male,
-            age: userData.age
-        })
-    };
-
-    putProfile = () => {
-        axios.put('http://15.164.57.47:8080/olive/sign', {
-            headers: { 'Content-type': 'application/json', },
-            "email": this.email,
-            "name": this.state.name,
-            "phoneNumber": this.state.phoneNumber,
-            "pw": this.state.password,
-        }).then(response => {
-            //this.props.onReceive(response.data.number);
-            if(response.status===200){
-                this.props.addAlert('프로필 수정완료');
-                this.resetProfile();//이부분 바꿔야함
-                this.props.onClose();
-            }
-        });
+        age: 0,
+        male: true
     };
 
     handleChange = (e) => {
@@ -71,22 +32,66 @@ class MyPageModal extends React.Component {
         });
     };
 
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    postSignUp = () => {
+        let response = api.signUpClient(
+            {
+                "id": this.state.email,
+                "name": this.state.name,
+                "phoneNumber": this.state.phoneNumber,
+                "pw": this.state.password,
+                "age": this.state.age,
+                "male": this.state.male
+            }
+        );
+        response.then(response => {
+            console.log(response);
+            if(response.status===200){
+                this.props.addAlert('회원가입이 완료되었습니다');
+            }
+        });
+    };
 
     render() {
-        if(this.props.isOpen===false)
-            return null;
-        const {userData} = this.props;
-        console.log(userData);
-
         return (
             <React.Fragment>
+                <Button simple color="success" size="lg" onClick={this.handleClickOpen}>
+                    회원가입
+                </Button>
                 <Dialog
-                    open={this.props.isOpen}
-                    onClose={this.props.onClose}
+                    open={this.state.open}
+                    onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">프로필 수정</DialogTitle>
+                    <DialogTitle id="form-dialog-title">회원가입</DialogTitle>
                     <DialogContent>
+                        <DialogContentText>
+                            올리브영 베이커리의 회원이 되시면.......뭐라하지 흠
+                        </DialogContentText>
+                        <CustomInput
+                            labelText="E-mail"
+                            id="email"
+                            formControlProps={{
+                                fullWidth: true
+                            }}
+                            inputProps={{
+                                type: "email",
+                                onChange: this.handleChange,
+                                required: true,
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <Email /*className={classes.inputIconsColor}*//>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
                         <CustomInput
                             labelText="Name"
                             id="name"
@@ -94,13 +99,12 @@ class MyPageModal extends React.Component {
                                 fullWidth: true
                             }}
                             inputProps={{
-                                value: this.state.name,
                                 type: "text",
                                 onChange: this.handleChange,
                                 required: true,
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <People/>
+                                        <People /*className={classes.inputIconsColor}*//>
                                     </InputAdornment>
                                 )
                             }}
@@ -113,7 +117,6 @@ class MyPageModal extends React.Component {
                             }}
                             inputProps={{
                                 type: "text",
-                                value: this.state.phoneNumber,
                                 onChange: this.handleChange,
                                 required: true,
                                 placeholder: "01012341234",
@@ -132,10 +135,8 @@ class MyPageModal extends React.Component {
                             }}
                             inputProps={{
                                 type: "password",
-                                value: this.state.password,
                                 onChange: this.handleChange,
                                 required: true,
-                                placeholder: "****",
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <Lock /*className={classes.inputIconsColor}*//>
@@ -152,10 +153,8 @@ class MyPageModal extends React.Component {
                             }}
                             inputProps={{
                                 type: "password",
-                                value: this.state.confirmPassword,
                                 onChange: this.handleChange,
                                 required: true,
-                                placeholder: "****",
                                 error: this.state.password!==this.state.confirmPassword,
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -166,14 +165,11 @@ class MyPageModal extends React.Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button color="rose" onClick={this.props.onClose} simple size="lg">
-                            닫기
+                        <Button onClick={this.handleClose} color="rose" simple size="lg">
+                            취소
                         </Button>
-                        <Button onClick={this.resetProfile} color="info" simple size="lg">
-                            초기화
-                        </Button>
-                        <Button color="primary" onClick={this.putProfile} simple size="lg">
-                            프로필 수정
+                        <Button color="primary" onClick={this.postSignUp} simple size="lg">
+                            회원가입
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -181,5 +177,3 @@ class MyPageModal extends React.Component {
         );
     }
 }
-
-export default  withStyles(styles)(MyPageModal);

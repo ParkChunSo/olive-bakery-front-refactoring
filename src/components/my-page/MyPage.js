@@ -1,18 +1,18 @@
 import React from 'react';
-import Button from "../../react-kit/components/CustomButtons/Button.jsx";
-import Card from "../../react-kit/components/Card/Card.jsx";
-import CardBody from "../../react-kit/components/Card/CardBody.jsx";
-import CardHeader from "../../react-kit/components/Card/CardHeader.jsx";
-import CardFooter from "../../react-kit/components/Card/CardFooter.jsx";
+import Button from "./Button.jsx";
+import Card from "../common/Card";
+import CardBody from "../common/CardBody";
+import CardHeader from "../common/CardHeader";
+import CardFooter from "../common/CardFooter";
 import withStyles from "@material-ui/core/styles/withStyles";
-import CustomTabs from "../../react-kit/components/CustomTabs/CustomTabs.jsx";
-import Table from "../../react-dashboard/components/Table/Table.jsx";
+import CustomTabs from "../common/CustomTabs";
+import Table from "../common/Table";
 
 import ReservationModal from "../ReservationModal";
 import MyPageModal from "./MyPageModal";
 import Profile from "./Profile";
 
-import * as api from "../../common/Api";
+import * as api from "../common/Api";
 
 const styles = {
     cardCategoryWhite: {

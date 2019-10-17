@@ -3,7 +3,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { Button } from '@material-ui/core';
+import Button from '../common/Button';
 
 class SelectDateBar extends Component{
     state = {

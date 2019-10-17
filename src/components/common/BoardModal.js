@@ -18,13 +18,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Check from "@material-ui/icons/Check";
 
-import CustomInput from "../common/CustomInput.jsx";
-import Button from "../common/Button.jsx";
-import Table from "../common/Table";
+import CustomInput from "./CustomInput.jsx";
+import Button from "./Button.jsx";
+import Table from "./Table";
 
 import checkStyles from "../../styles/customCheckboxRadioSwitch";
 import customStyles from "../../styles/common";
-
+import * as api from "./Api";
 
 let email = null;
 const styles = {...customStyles, ...checkStyles};
@@ -33,14 +33,14 @@ const token = storage.get('token');
 class BoardModal extends React.Component {
     state = {
         isUpdate: false,
-        Title: "",
+        title: "",
         context: "",
         isNotice: "false",
         isSecret: "false",
         content: ""
     };
     componentDidMount() {
-        this.email = storage.get('email');
+        email = storage.get('email');
     }
 
     handleChange = (e) => {
@@ -49,39 +49,28 @@ class BoardModal extends React.Component {
         });
     };
 
+    putBoard = () => {
+        if(email===this.props.item.posts.userId || this.props.isAdmin===true) {
+            api.updatePost(this.props.item.posts.boardId, this.state.title, this.state.context
+                , this.state.isNotice==='true', this.state.isSecret==='true').then(response =>{
+                    
+                this.props.addAlert(`게시물 ${this.props.item.posts.boardId.toString()} 수정완료`);
+                this.props.resetTable('board', this.props.boardPage);
+                this.props.resetComment(this.props.item.posts.boardId, 'child');
+                this.toggleUpdateBoard();
+            });
+        }
+    };
+
     deleteBoard = () => {
-        if(this.email===this.props.item.posts.userId || this.props.isAdmin===true) {
-            axios.delete(`http://15.164.57.47:8080/olive/board/id/${this.props.item.posts.boardId}`
-            ).then(response => {
-                if (response.status === 200) {
-                    this.props.addAlert(`게시물 ${this.props.item.posts.boardId.toString()} 삭제완료`);
+        if(email===this.props.item.posts.userId || this.props.isAdmin===true) {
+            api.deletePost(this.props.item.posts.boardId).then(response =>{
+                this.props.addAlert(`게시물 ${this.props.item.posts.boardId.toString()} 삭제완료`);
                     this.props.onClose();
                     if(this.props.type==='board')
                         this.props.resetTable('board', this.props.boardPage);
                     else
                         this.props.resetTable('qna', this.props.qnaPage);
-                }
-            });
-        }
-    };
-
-    putBoard = () => {
-        if(this.email===this.props.item.posts.userId || this.props.isAdmin===true) {
-            axios.put('http://15.164.57.47:8080/olive/board', {
-                "boardId": this.props.item.posts.boardId,
-                "context": this.state.context,
-                "notice": this.state.isNotice==='true',
-                "secret": this.state.isSecret==='true',
-                "title": this.state.Title
-            },
-                {headers: { 'Content-type': 'application/json', 'Authorization': token}}).then(response => {
-                //this.props.onReceive(response.data.number);
-                if (response.status === 200) {
-                    this.props.addAlert(`게시물 ${this.props.item.posts.boardId.toString()} 수정완료`);
-                    this.props.resetTable('board', this.props.boardPage);
-                    this.props.resetComment(this.props.item.posts.boardId, 'child');
-                    this.toggleUpdateBoard();
-                }
             });
         }
     };
@@ -120,7 +109,7 @@ class BoardModal extends React.Component {
     toggleUpdateBoard = () => {
         this.setState({
             isUpdate: !this.state.isUpdate,
-            Title: this.props.item.posts.title,
+            title: this.props.item.posts.title,
             context: this.props.item.posts.context,
             isNotice: this.props.item.posts.notice===true?'true':'false',
             isSecret: this.props.item.posts.secret===true?'true':'false'
@@ -312,7 +301,7 @@ class BoardModal extends React.Component {
                                     {/*error={!(/^[a-z][a-z0-9]{4,14}$/i.test(this.state.password))}*/}
                                     <CustomInput
                                         labelText="Title"
-                                        id="Title"
+                                        id="title"
                                         formControlProps={{
                                             fullWidth: true
                                         }}
