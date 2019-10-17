@@ -13,14 +13,14 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { Apps, CloudDownload } from "@material-ui/icons";
 
 // core components
-import CustomDropdown from "../CustomDropdown/CustomDropdown.jsx";
-import Button from "../CustomButtons/Button.jsx";
+//import CustomDropdown from "../CustomDropdown/CustomDropdown.jsx";
+import Button from "../common/Button.jsx";
 
-import headerLinksStyle from "../../assets/jss/material-kit-react/components/headerLinksStyle.jsx";
+import headerLinksStyle from "../../styles/headerLinksStyle.jsx";
 import purple from "@material-ui/core/colors/purple";
 import {connect} from 'react-redux';
-import * as authActions from '../../../store/modules/auth';
-import storage from '../../../storage';
+import * as authActions from '../../store/modules/auth';
+import storage from '../../storage';
 
 
 const linkStyle = {

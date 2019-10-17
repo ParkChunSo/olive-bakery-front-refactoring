@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './image/olive.png';
-import Header from "./styles/Header.jsx";
-import HeaderLinks from "./styles/HeaderLinks.jsx";
+import Header from "./components/common/Header.jsx";
+import HeaderLinks from "./components/common/HeaderLinks.jsx";
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,50 +12,12 @@ import Divider from '@material-ui/core/Divider';
 import { mainListItems, secondaryListItems } from './listItems';
 import {Route} from 'react-router-dom';
 import {HomePage, MyPagePage, ProductsPage, SignInPage, AdminProductsPage, AdminBoardPage, AdminUsersPage, AdminReservationPage, BoardPage, AdminDashboardPage} from "./router";
-import Alert from "./components/Alert";
+import Alert from "./components/common/Alert";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import storage from "./storage";
 import * as alertActions from "./store/modules/alert";
-
-const drawerWidth = 300;
-
-const styles = theme => ({
-    root: {
-        display: 'flex',
-    },
-    toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '10px 10px',
-        ...theme.mixins.toolbar,
-    },
-    drawerPaper: {
-        position: 'relative',
-        whiteSpace: 'nowrap',
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    content: {
-        flexGrow: 1,
-        //padding: theme.spacing.unit * 3,
-        height: '100vh',
-        overflow: 'auto',
-    },
-    h5: {
-        marginBottom: theme.spacing.unit * 2,
-    },
-    footer: {
-        backgroundColor: theme.palette.background.paper,
-    },
-});
+import styles from "./styles/common"
 
 class App extends Component {
     state = {
@@ -119,18 +81,7 @@ class App extends Component {
                                 this.alert(msg, index)
                             ))
                         }
-                        <div>
-                            <Route exact path="/" component={HomePage}/>
-                            <Route exact path="/products" component={ProductsPage}/>
-                            <Route exact path="/signin" component={SignInPage}/>
-                            <Route exact path="/mypage" component={MyPagePage}/>
-                            <Route exact path="/board" component={BoardPage}/>
-                            <Route exact path="/admin/products" component={AdminProductsPage}/>
-                            <Route exact path="/admin/board" component={AdminBoardPage}/>
-                            <Route exact path="/admin/users" component={AdminUsersPage}/>
-                            <Route exact path="/admin/reservation" component={AdminReservationPage}/>
-                            <Route exact path="/admin" component={AdminDashboardPage}/>
-                        </div>
+
                     </main>
 
 

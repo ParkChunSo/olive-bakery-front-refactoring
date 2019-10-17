@@ -7,6 +7,6 @@ const configure = () => {
     const store = createStore(modules, devTools);
 
     return store;
-}
+};
 
 export default configure;
