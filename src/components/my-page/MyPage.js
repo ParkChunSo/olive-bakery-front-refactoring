@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from "./Button.jsx";
+import Button from "../common/Button.jsx";
 import Card from "../common/Card";
 import CardBody from "../common/CardBody";
 import CardHeader from "../common/CardHeader";
@@ -8,7 +8,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CustomTabs from "../common/CustomTabs";
 import Table from "../common/Table";
 
-import ReservationModal from "../ReservationModal";
+import ReservationModal from "./ReservationModal";
 import MyPageModal from "./MyPageModal";
 import Profile from "./Profile";
 
@@ -62,35 +62,30 @@ class MyPage extends React.Component {
         this.getUserData();
     }
 
-    getReservation = async () => {
-        let request = await api.getReservationDataByUser("REQUEST");
-        let accept = await api.getReservationDataByUser("ACCEPT");
-        let complete = await api.getReservationDataByUser("COMPLETE");
-        if(request === undefined || request === null || request === ""){
-            request = [];
-        }
-        if(accept === undefined || accept === null || accept === ""){
-            accept = [];
-        }
-        if(complete === undefined || complete === null || complete === ""){
-            complete = [];
-        }
-        this.setState({
-            request: request,
-            accept: accept,
-            complete: complete
-        })
+    getReservation = () => {
+        api.getReservationDataByUser("REQUEST").then(response =>{
+            this.setState({
+                request: response.data
+            })
+        });
+        api.getReservationDataByUser("ACCEPT").then(response =>{
+            this.setState({
+                accept: response.data
+            })
+        });
+        api.getReservationDataByUser("COMPLETE").then(response =>{
+            this.setState({
+                complete: response.data
+            })
+        });
     };
 
-    getUserData = async () => {
-        let userData = await api.getUserData();
-        if(userData === undefined || userData === null || userData === ""){
-            userData = {};
-        }
-        
-        this.setState({
-            userData: userData
-        })
+    getUserData = () => {
+        api.getUserData().then(response =>{
+            this.setState({
+                userData: response.data
+            })
+        });
     }
 
     toggleFormModal = () => {
