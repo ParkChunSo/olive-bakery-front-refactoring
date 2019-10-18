@@ -11,38 +11,10 @@ import Table from "../common/Table";
 import ReservationModal from "./ReservationModal";
 import MyPageModal from "./MyPageModal";
 import Profile from "./Profile";
-
+import CustomStyle from "../../styles/common"
 import * as api from "../common/Api";
 
-const styles = {
-    cardCategoryWhite: {
-        "&,& a,& a:hover,& a:focus": {
-            color: "rgba(255,255,255,.62)",
-            margin: "0",
-            fontSize: "14px",
-            marginTop: "0",
-            marginBottom: "0"
-        },
-        "& a,& a:hover,& a:focus": {
-            color: "#FFFFFF"
-        }
-    },
-    cardTitleWhite: {
-        color: "#FFFFFF",
-        marginTop: "0px",
-        minHeight: "auto",
-        fontWeight: "300",
-        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-        marginBottom: "3px",
-        textDecoration: "none",
-        "& small": {
-            color: "#777",
-            fontSize: "65%",
-            fontWeight: "400",
-            lineHeight: "1"
-        }
-    }
-};
+const styles = CustomStyle;
 
 
 class MyPage extends React.Component {
@@ -146,7 +118,7 @@ class MyPage extends React.Component {
         this.toggleTableModal();
     };
 
-    
+
 
     handleClickRequestTab = () => {
         this.setState({

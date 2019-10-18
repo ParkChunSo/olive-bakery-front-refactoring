@@ -78,23 +78,25 @@ class App extends Component {
                         />
                         {
                             messages.map((msg, index) => (
+                                msg===""?null:
                                 this.alert(msg, index)
                             ))
                         }
                         <div>
-                            <Route exact path="/" component={HomePage}/> 
+                            <Route exact path="/" component={HomePage}/>
                             {/* <Route exact path="/products" component={ProductsPage}/> */}
                             <Route exact path="/signin" component={SignInPage}/>
+                            <Route exact path="/products" component={ProductsPage}/>
                             <Route exact path="/mypage" component={MyPagePage}/>
                             <Route exact path="/board" component={BoardPage}/>
-                            {/* <Route exact path="/admin/products" component={AdminProductsPage}/> */}
+                            <Route exact path="/admin/products" component={AdminProductsPage}/>
                             <Route exact path="/admin/board" component={AdminBoardPage}/>
-                            {/* <Route exact path="/admin/users" component={AdminUsersPage}/> */}
-                            {/* <Route exact path="/admin/reservation" component={AdminReservationPage}/> */}
+                                {/* <Route exact path="/admin/users" component={AdminUsersPage}/> */}
+                            <Route exact path="/admin/reservation" component={AdminReservationPage}/>
                             <Route exact path="/admin" component={AdminDashboardPage}/>
                         </div>
                     </main>
-                    
+
 
                 </div>
             </div>

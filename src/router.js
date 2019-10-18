@@ -1,10 +1,10 @@
 export { default as HomePage } from './components/home/HomePage';
-//export { default as ProductsPage } from './ProductsPage';
+export { default as ProductsPage } from './components/bread/BreadPage';
 export { default as SignInPage } from './components/sign/SignInPage';
 export { default as MyPagePage } from './components/my-page/MyPage';
-//export { default as AdminProductsPage} from './Admin/AdminProductsPage';
+export { default as AdminProductsPage} from './components/admin-bread/AdminBreadPage';
 export { default as AdminBoardPage} from './components/admin-board/AdminBoard';
 //export { default as AdminUsersPage} from './Admin/AdminUsersPage';
-//export { default as AdminReservationPage} from './Admin/AdminReservationPage';
+export { default as AdminReservationPage} from './components/admin-reservation/AdminReservationPage';
 export { default as BoardPage} from './components/board/Board';
 export { default as AdminDashboardPage} from './components/admin-dashboard/AdminDashboard';

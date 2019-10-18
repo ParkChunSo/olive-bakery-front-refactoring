@@ -80,7 +80,7 @@ class SignUpForm extends React.Component {
             if(response.status===200){
                 this.props.addAlert('회원가입이 완료되었습니다');
                 this.setState({
-                   open: false 
+                   open: false
                 });
             }
         });
