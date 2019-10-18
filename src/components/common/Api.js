@@ -173,7 +173,7 @@ export function savePost(type, title, context, isSecret, isNotice){
         "isSecret": isSecret,
         "title": title},
         {headers: {'Content-type': 'application/json','Authorization': token}
-        
+
     });
 }
 
@@ -213,12 +213,33 @@ export function updateReservatioinState(reservationId){
         ,{},{headers: { 'Content-type': 'application/json', 'Authorization': token}});
 }
 
-export function saveReservatioin(breadInfo, bringTime, userEmail){
+export function saveReservation(breadInfo, bringTime, userEmail){
     return axios.post(url+'reservation'
         ,{
             "breadInfo": breadInfo,
             "bringTime": bringTime,
             "userEmail": userEmail
+        },{headers: { 'Content-type': 'application/json', 'Authorization': token}});
+}
+
+export function updateReservation(reservationId, reservationSaveRequest){
+    return axios.put(url+'reservation'
+        ,{
+            "reservationId": reservationId,
+            "reservationSaveRequest": reservationSaveRequest
+        },{headers: { 'Content-type': 'application/json', 'Authorization': token}});
+}
+
+export function deleteReservation(reservationId){
+    return axios.delete(url+`reservation/${reservationId}`
+        ,{headers: { 'Content-type': 'application/json', 'Authorization': token}});
+}
+
+export function postReservationDate(reservationType, selectDate){
+    return axios.post(url+'reservation/date'
+        ,{
+            "reservationType": reservationType,
+            "selectDate": selectDate
         },{headers: { 'Content-type': 'application/json', 'Authorization': token}});
 }
 

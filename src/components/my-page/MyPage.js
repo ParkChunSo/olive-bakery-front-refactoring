@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from "./Button.jsx";
+import Button from "../common/Button.jsx";
 import Card from "../common/Card";
 import CardBody from "../common/CardBody";
 import CardHeader from "../common/CardHeader";
@@ -8,41 +8,13 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CustomTabs from "../common/CustomTabs";
 import Table from "../common/Table";
 
-import ReservationModal from "../ReservationModal";
+import ReservationModal from "./ReservationModal";
 import MyPageModal from "./MyPageModal";
 import Profile from "./Profile";
-
+import CustomStyle from "../../styles/common"
 import * as api from "../common/Api";
 
-const styles = {
-    cardCategoryWhite: {
-        "&,& a,& a:hover,& a:focus": {
-            color: "rgba(255,255,255,.62)",
-            margin: "0",
-            fontSize: "14px",
-            marginTop: "0",
-            marginBottom: "0"
-        },
-        "& a,& a:hover,& a:focus": {
-            color: "#FFFFFF"
-        }
-    },
-    cardTitleWhite: {
-        color: "#FFFFFF",
-        marginTop: "0px",
-        minHeight: "auto",
-        fontWeight: "300",
-        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-        marginBottom: "3px",
-        textDecoration: "none",
-        "& small": {
-            color: "#777",
-            fontSize: "65%",
-            fontWeight: "400",
-            lineHeight: "1"
-        }
-    }
-};
+const styles = CustomStyle;
 
 
 class MyPage extends React.Component {
@@ -62,24 +34,32 @@ class MyPage extends React.Component {
         this.getUserData();
     }
 
-    getReservation = async () => {
-        let request = await api.getReservationDataByUser("REQUEST");
-        let accept = await api.getReservationDataByUser("ACCEPT");
-        let complete = await api.getReservationDataByUser("COMPLETE");
-        if(request === undefined || request === null || request === ""){
-            request = [];
-        }
-        if(accept === undefined || accept === null || accept === ""){
-            accept = [];
-        }
-        if(complete === undefined || complete === null || complete === ""){
-            complete = [];
-        }
-        this.setState({
-            request: request,
-            accept: accept,
-            complete: complete
-        })
+    getReservation = () => {
+
+        api.getReservationDataByUser("REQUEST").then(response => {
+            if(response.data=== undefined || response.data === null || response.data === ""){
+                response = [];
+            }
+            this.setState({
+                request: response.data
+            });
+        });
+        api.getReservationDataByUser("ACCEPT").then(response => {
+            if(response.data === undefined || response.data === null || response.data === ""){
+                response.data = [];
+            }
+            this.setState({
+                accept: response.data
+            });
+        });
+        api.getReservationDataByUser("COMPLETE").then(response => {
+            if(response.data === undefined || response.data === null || response.data === ""){
+                response.data = [];
+            }
+            this.setState({
+                complete: response.data
+            });
+        });
     };
 
     getUserData = async () => {
@@ -87,11 +67,11 @@ class MyPage extends React.Component {
         if(userData === undefined || userData === null || userData === ""){
             userData = {};
         }
-        
+
         this.setState({
             userData: userData
         })
-    }
+    };
 
     toggleFormModal = () => {
         this.setState({
@@ -151,7 +131,7 @@ class MyPage extends React.Component {
         this.toggleTableModal();
     };
 
-    
+
 
     handleClickRequestTab = () => {
         this.setState({

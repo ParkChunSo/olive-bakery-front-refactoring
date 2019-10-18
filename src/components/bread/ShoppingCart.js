@@ -56,7 +56,7 @@ class ShoppingCart extends React.Component {
 
         this.email = storage.get('email');
         const {itemlist} = this.props;
-        let response = api.saveReservatioin(itemlist.map(item => ({"breadCount": item.count, "breadName": item.name})),
+        let response = api.saveReservation(itemlist.map(item => ({"breadCount": item.count, "breadName": item.name})),
             datetime, this.email);
         response.then(response => {
             if(response.status===200) {

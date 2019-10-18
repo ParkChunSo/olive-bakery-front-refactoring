@@ -22,13 +22,11 @@ class SectionCarousel extends React.Component {
     }
     getBread = () => {
         let response = api.getAllBreads();
+
         response.then(response => {
-            if(response.status===200) {
-                console.log('알림창 추가하자');
-                this.setState({
-                    imgs: response.data.map(bread => ({name: bread.name, url: bread.imageUrl}))
-                });
-            }
+            this.setState({
+                imgs: response.map(bread => ({name: bread.name, url: bread.imageUrl}))
+            });
         });
     };
     render() {
@@ -49,7 +47,8 @@ class SectionCarousel extends React.Component {
                                 this.state.imgs.map((img,key) => (
                                     <div key={key}>
                                         <img
-                                            src={img}
+                                            height='500'
+                                            src={img.url}
                                             alt="First slide"
                                             className="slick-image"
                                         />
@@ -64,6 +63,7 @@ class SectionCarousel extends React.Component {
                         </Carousel>
                     </Card>
                 </GridItem>
+                {console.log(this.state.imgs[0])}
             </GridContainer>
         );
     }
