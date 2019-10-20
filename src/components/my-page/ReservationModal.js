@@ -8,7 +8,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import axios from "axios";
-import "../../styles/scss/material-kit-react.scss"
 
 import Datetime, {Moment} from "react-datetime";
 import * as api from "../common/Api"
@@ -154,7 +153,7 @@ class ReservationModal extends React.Component {
                                         <p>{item.price}</p>
                                         <p>수령시간: {item.bringTime}</p>
                                         <p>예약시간: {item.reservationTime}</p>
-                                        <p>수령인: {item.memberName}</p>
+                                        <p>구매자: {item.memberName}</p>
                                     </React.Fragment>
                                 </DialogContentText>
                             </DialogContent>

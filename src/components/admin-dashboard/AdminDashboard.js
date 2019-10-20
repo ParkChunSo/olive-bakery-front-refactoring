@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import AdminChart from "./AdminChart"
 import AdminReservation from "./AdminReservation"
 import SelectDateBar from './SelectDateBar';
-
+import SalesModal from './SalesModal';
 import Button from '../common/Button';
 
 import * as api from "../common/Api"
@@ -23,7 +23,8 @@ class AdminDashboard extends Component{
         selectedMonth: 1,
         selectedDay: 1,
         detailsSalesData: [],
-        graphData: []
+        graphData: [],
+        isOpenSalesModal: false
     }
 
     componentDidMount(){
@@ -69,8 +70,11 @@ class AdminDashboard extends Component{
         
         this.getReservationDataByDate(this.convertDate2String(this.state.selectedYear, this.state.selectedMonth, selectedDay))
     }
-    handleButtonClick = () =>{
-   
+
+        toggleSalesModal = () =>{
+        this.setState({
+            isOpenSalesModal: !this.state.isOpenSalesModal
+        })
     }
 
     getReservationDataByDate = async (selectDate) =>{
@@ -149,8 +153,14 @@ class AdminDashboard extends Component{
     
 
     render(){
+        console.log(this.state.isOpenSalesModal);
         const {reservationData, selectedYear, selectedMonth, selectedDay} = this.state;
         return (
+            <React.Fragment>
+                <SalesModal
+                        isOpen = {this.state.isOpenSalesModal}
+                        onClose = {this.toggleSalesModal}
+                    />
                 <div>
                     <div className='chart-div'>
                         <div>
@@ -162,7 +172,7 @@ class AdminDashboard extends Component{
                                 />
                             </div>
                             <div>
-                                <Button onClick = {this.handleButtonClick}>매출 등록 넣기</Button>
+                                <Button onClick = {this.toggleSalesModal}>매출 등록 넣기</Button>
                             </div>
                         </div>
                         
@@ -239,6 +249,7 @@ class AdminDashboard extends Component{
                         </div>
                     </div>
                 </div>
+            </React.Fragment>
         )
     };
 
