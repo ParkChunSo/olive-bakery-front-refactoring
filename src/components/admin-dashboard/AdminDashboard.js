@@ -71,10 +71,11 @@ class AdminDashboard extends Component{
         this.getReservationDataByDate(this.convertDate2String(this.state.selectedYear, this.state.selectedMonth, selectedDay))
     }
 
-        toggleSalesModal = () =>{
+    toggleSalesModal = () =>{
         this.setState({
             isOpenSalesModal: !this.state.isOpenSalesModal
         })
+        this.getChartDataByYearAndMonth(this.state.selectedYear, this.state.selectedMonth);
     }
 
     getReservationDataByDate = async (selectDate) =>{
@@ -117,18 +118,15 @@ class AdminDashboard extends Component{
         })
     };
 
-    getChartDataByYearAndMonth = async (year, month) =>{
-        const response = await api.getGraphDataByYearAndMonth(year, month);
-
-        if(response === undefined || response === null || response === ""){
-            return;
-        }
-        console.log(response);
-
-        this.setState({
-            graphData: response.map(data => ({date: data.date[0].toString() + '-' + data.date[1].toString() +'-'+ data.date[2].toString(), totalAve: data.totalAve})),
-            detailsSalesData: response.map(data => ({date: data.date[0], totalAve: data.totalAve, byTypes: data.byTypes}))
-        })
+    getChartDataByYearAndMonth = (year, month) =>{
+        api.getGraphDataByYearAndMonth(year, month).then(response =>{
+            console.log(typeof(response.data));
+            
+            this.setState({
+                graphData: response.data === "" ? [] : response.data.map(data => ({date: data.date[0].toString() + '-' + data.date[1].toString() +'-'+ data.date[2].toString(), totalAve: data.totalAve})),
+                detailsSalesData: response.data === "" ? [] : response.data.map(data => ({date: data.date[0], totalAve: data.totalAve, byTypes: data.byTypes}))
+            })
+        });
     };
 
     callBackSelectBar = (selectedYear, selectedMonth) =>{

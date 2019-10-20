@@ -6,6 +6,7 @@ class Profile extends Component{
         if(userData === undefined){
             return (<div>데이터를 불러오는데 실패했습니다.</div>);
         }
+        
         console.log(userData);
         return(
             <div>

@@ -91,7 +91,7 @@ class App extends Component {
                             <Route exact path="/board" component={BoardPage}/>
                             <Route exact path="/admin/products" component={AdminProductsPage}/>
                             <Route exact path="/admin/board" component={AdminBoardPage}/>
-                                {/* <Route exact path="/admin/users" component={AdminUsersPage}/> */}
+                            <Route exact path="/admin/users" component={AdminUsersPage}/>
                             <Route exact path="/admin/reservation" component={AdminReservationPage}/>
                             <Route exact path="/admin" component={AdminDashboardPage}/>
                         </div>

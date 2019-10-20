@@ -1,11 +1,6 @@
 import React from 'react';
 import Button from "../common/Button.jsx";
-import axios, { post } from "axios";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
-import Lock from "@material-ui/icons/LockOutlined";
-import Phone from "@material-ui/icons/Phone";
+
 import Card from "../common/Card.jsx";
 import CardBody from "../common/CardBody.jsx";
 import CardHeader from "../common/CardHeader.jsx";

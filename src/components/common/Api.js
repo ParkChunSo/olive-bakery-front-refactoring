@@ -39,6 +39,11 @@ export function signUpAdmin(userData){
     });
 };
 
+// 회원 조회(관리자)
+export function getUsers(){
+    return axios.get(url + `sign/members`, { headers: {'Authorization': token}});
+};
+
 // 회원정보 조회(사용자)
 export function getUserData(){
     return axios.get(url + `sign/check`, { headers: {'Authorization': token}});
@@ -284,12 +289,8 @@ export async function getGraphDataByYear(year){
     return null;
 }
 
-export async function getGraphDataByYearAndMonth(year, month){
-    const response = await axios.get(url + `sales/graph/year/${year}/month/${month}`, { headers: { 'Authorization': token } });
-    if (response.status === 200) {
-        return response.data;
-    }
-    return null;
+export function getGraphDataByYearAndMonth(year, month){
+    return axios.get(url + `sales/graph/year/${year}/month/${month}`, { headers: { 'Authorization': token } });
 }
 
 export function saveOfflineSale(date, sales){

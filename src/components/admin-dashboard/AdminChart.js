@@ -30,14 +30,17 @@ class AdminChart extends Component{
                 loader={<div>Loading Chart</div>}
                 data={this.state.chartData}
                 options={{
+                    title: '매출 그래프',
+                    
                     hAxis: {
-                    title: '시간',
+                    title: '날짜',
                     },
                     vAxis: {
                     title: '매출액',
                     },
                 }}
                 rootProps={{ 'data-testid': '1' }}
+                
                 />
          </div>   
         )

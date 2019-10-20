@@ -1,22 +1,14 @@
 import React from 'react';
 import Button from "../common/Button.jsx";
-import CustomInput from "../common/CustomInput.jsx";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import axios from "axios";
-
 import Datetime, {Moment} from "react-datetime";
 import * as api from "../common/Api"
 
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
-import Lock from "@material-ui/icons/LockOutlined";
-import Phone from "@material-ui/icons/Phone";
 import "../../styles/scss/material-kit-react.scss"
 class ReservationModal extends React.Component {
     state = {

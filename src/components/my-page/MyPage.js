@@ -10,7 +10,7 @@ import Table from "../common/Table";
 
 import ReservationModal from "./ReservationModal";
 import MyPageModal from "./MyPageModal";
-import Profile from "./Profile";
+import Profile from "../common/Profile";
 import CustomStyle from "../../styles/common"
 import * as api from "../common/Api";
 

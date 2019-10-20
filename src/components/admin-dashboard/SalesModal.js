@@ -18,31 +18,32 @@ class SalesModal extends Component{
     }
 
     handleButtonClick = () =>{
-        api.saveOfflineSale(this.state.date, this.tate.sales).then(
+        api.saveOfflineSale(this.state.date, this.state.sales).then(
             this.props.onClose()
         );
         
     };
     handleDateChange = (value) =>{
         if(typeof value==="string") {
-            this.props.addAlert('클릭하세요');
             return null;
         }
         this.setState({
             date: value.format('YYYY-MM-DD')
         });
     };
-
-    handleDateChange = (e) =>{
+    handleCustomInputChange = (e) =>{
         this.setState({
-            sales: e.target.value
+            sales: Number(e.target.value)
         })
     }
 
     render(){
+        if(this.props.isOpen === false)
+            return null;
+
         return(
             <Dialog
-                open={this.props.open}
+                open={this.props.isOpen}
                 onClose={this.props.onClose}
                 aria-labelledby="form-dialog-title"
             >
@@ -60,11 +61,17 @@ class SalesModal extends Component{
                         />
                         <p>가격</p>
                         <CustomInput 
+                            id="price"
                             labelText="price"
                             formControlProps={{
                                 fullWidth: true
                             }}
-                            onChange= {this.handleCustomInputChange}
+                            inputProps={{
+                                type: "text",
+                                onChange: this.handleCustomInputChange,
+                                required: true,
+                            }}
+                            // onChange= {this.handleCustomInputChange}
                         />
                         <Button onClick={this.handleButtonClick}>추가</Button>
                     </DialogContentText>
