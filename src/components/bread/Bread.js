@@ -77,18 +77,6 @@ class Bread extends React.Component {
         if(item.length !== null)
             CartActions.addItem(item);
     };
-    handleDecrement = (name) => {
-        const { CartActions } = this.props;
-        CartActions.decrement(name);
-    };
-    handleIncrement = (name) => {
-        const { CartActions } = this.props;
-        CartActions.increment(name);
-    };
-    handleDelItem = (name) => {
-        const { CartActions } = this.props;
-        CartActions.delItem(name);
-    };
     toggleModal = () => {
         this.setState({
             isOpen: !this.state.isOpen
@@ -142,17 +130,14 @@ class Bread extends React.Component {
     };
 
     render() {
-        const {classes, itemlist, tot} = this.props;
+        const {classes} = this.props;
         const { bread, MON, TUE, WED, THU, FRI, SAT, SUN } = this.state;
         const {
-            handleAddItem,
-            handleIncrement,
-            handleDecrement,
-            handleDelItem
+            handleAddItem
         } = this;
         const days = ['ALL', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
         const breads = {ALL: bread, MON: MON, TUE: TUE, WED: WED, THU: THU, FRI: FRI, SAT: SAT, SUN: SUN};
-        const recommend = bread.filter(b => b.state === "NORMAL");
+        const recommend = bread.filter(b => b.state === "RECOMMEND");
         let tabs = days.map(day => (
             {
                 tabName: day,
@@ -211,9 +196,9 @@ class Bread extends React.Component {
                         <div className={classes.content}>
                             <Card>
                                 <CardHeader color="primary">
-                                    <h4 className={classes.cardTitleWhite}>상품 관리</h4>
+                                    <h4 className={classes.cardTitleWhite}>추천 상품</h4>
                                     <p className={classes.cardCategoryWhite}>
-                                        빵 추가 및 수정
+                                        추천 상품입니다.
                                     </p>
                                 </CardHeader>
                                 <CardBody>
@@ -253,16 +238,7 @@ class Bread extends React.Component {
                                 </CardBody>
                             </Card>
                         </div>
-                        <div className={classes.right}>
-                            <ShoppingCart
-                                itemlist={itemlist}
-                                tot={tot}
-                                increment={handleIncrement}
-                                decrement={handleDecrement}
-                                delItem={handleDelItem}
-                                addAlert={this.props.addAlert}
-                            />
-                        </div>
+
                         <div className={classes.content}>
                             <CustomTabs
                                 headerColor="primary"
@@ -281,12 +257,4 @@ Bread.propTypes = {
 };
 
 const styledProducts = withStyles(CustomStyle)(Bread);
-export default connect(
-    (state) => ({
-        itemlist: state.cart.itemlist,
-        tot: state.cart.tot
-    }),
-    (dispatch) => ({
-        CartActions: bindActionCreators(cartActions, dispatch)
-    })
-)(styledProducts);
+export default styledProducts;

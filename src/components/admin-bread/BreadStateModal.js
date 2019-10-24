@@ -43,6 +43,7 @@ class BreadStateModal extends React.Component {
         let soldOutStatusCode, stateStatusCode;
 
         console.log(items);
+        console.log(this.state.isSoldOut);
         for(var index in items){
             console.log(items[index]);
             soldOutStatusCode = await api.updateStateOfSoldOut(items[index].id, this.state.isSoldOut);
