@@ -213,6 +213,11 @@ export function saveComment(boardId, userId, content, userName){
 
 ////////////////////// 예약 API //////////////////////
 
+export function getReservationDataByAdminRole(userId, type){
+    return axios.get(url + `reservation/userId/${userId}/type/${type}`
+                    , { headers: { 'Content-type': 'application/json', 'Authorization': token}});
+}
+
 export function updateReservatioinState(reservationId){
     return axios.put(url+`reservation/${reservationId}`
         ,{},{headers: { 'Content-type': 'application/json', 'Authorization': token}});
@@ -250,43 +255,27 @@ export function postReservationDate(reservationType, selectDate){
 
 ////////////////////// 그래프 API //////////////////////
 
-export async function getReservationDataByDate(date){
-    const response = await axios.post(url + 'reservation/date', {
+export function getReservationDataByDate(date){
+    return axios.post(url + 'reservation/date', {
         "reservationType": "COMPLETE",
         "selectDate": date
     }, { headers: { 'Content-type': 'application/json', 'Authorization': token } });
-    if (response.status === 200) {
-        return response.data;
-    }
-    return null;
 }
 
-export async function getReservationDataByRange(startDate, endDate){
-    const response = await axios.post(url + 'reservation/date', {
+export function getReservationDataByRange(startDate, endDate){
+    return axios.post(url + 'reservation/date/range', {
         "reservationType": "COMPLETE",
         "startDate": startDate,
-        "endDate": endDate
-    }, { headers: { 'Content-type': 'application/json', 'Authorization': token } });
-    if (response.status === 200) {
-        return response.data;
-    }
-    return null;
+        "endDate": endDate}
+        , { headers: { 'Content-type': 'application/json', 'Authorization': token } });
 }
 
-export async function getGraphData(){
-    const response = await axios.get(url + 'sales/graph', { headers: { 'Authorization': token } });
-    if (response.status === 200) {
-        return response.data;
-    }
-    return null;
+export function getGraphData(){
+    return axios.get(url + 'sales/graph', { headers: { 'Authorization': token } });
 }
 
 export async function getGraphDataByYear(year){
-    const response = await axios.get(url + `sales/graph/year/${year}`, { headers: { 'Authorization': token } });
-    if (response.status === 200) {
-        return response.data;
-    }
-    return null;
+    return await axios.get(url + `sales/graph/year/${year}`, { headers: { 'Authorization': token } });
 }
 
 export function getGraphDataByYearAndMonth(year, month){

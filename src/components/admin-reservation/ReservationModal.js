@@ -82,15 +82,14 @@ class ReservationModal extends React.Component {
     };
 
     putReservation = () => {
-        let response = api.updateReservation(
+        api.updateReservation(
             this.props.item.reservationId,
             {
                 "breadInfo": this.props.breadInfo,
                 "bringTime": this.props.datetime,
                 "userEmail": this.props.email
             }
-        );
-        response.then(response => {
+        ).then(response => {
             if(response.status===200) {
                 this.props.addAlert('예약정보 수정완료');
                 this.props.resetTable();

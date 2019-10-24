@@ -19,11 +19,13 @@ class AdminReservation extends Component{
             reservationData: nextProps.reservationData
         });
     }
+
     toggleTableModal = () => {
         this.setState({
             modalOpen: !this.state.modalOpen
         });
     };
+
     handleRowClick = (event, id) =>{
         const {reservationData} = this.state;
         const item = reservationData.filter(reservationData => reservationData.reservationId === parseInt(id))[0];
@@ -41,6 +43,8 @@ class AdminReservation extends Component{
     }
     render(){
         const {reservationData} = this.state;
+        console.log("ReservationRender");
+        
         return(
             <React.Fragment>
                 <ReservationConfirmModal

@@ -10,6 +10,7 @@ import Lock from "@material-ui/icons/LockOutlined";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Check from "@material-ui/icons/Check";
+import TextField from '@material-ui/core/TextField';
 
 import Button from "./Button.jsx";
 import CustomInput from "./CustomInput.jsx";
@@ -30,6 +31,8 @@ class CreateBoardModal extends React.Component {
     };
 
     handleChange = (e) => {
+        console.log(e.target.id);
+        
         this.setState({
             [e.target.id]: e.target.value
         });
@@ -88,25 +91,6 @@ class CreateBoardModal extends React.Component {
                 >
                     <DialogTitle id="form-dialog-title">게시물/QnA 추가</DialogTitle>
                     <DialogContent>
-                        <CustomInput
-                            labelText="게시할 내용"
-                            id="context"
-                            formControlProps={{
-                                fullWidth: true
-                            }}
-                            inputProps={{
-                                type: "text",
-                                value: this.state.context,
-                                onChange: this.handleChange,
-                                multiline: true,
-                                required: true,
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <People /*className={classes.inputIconsColor}*//>
-                                    </InputAdornment>
-                                )
-                            }}
-                        />
                         {
                             isAdmin === false
                                 ?
@@ -156,10 +140,8 @@ class CreateBoardModal extends React.Component {
                                     />
                                 </React.Fragment>
                         }
-
-                        {/*error={!(/^[a-z][a-z0-9]{4,14}$/i.test(this.state.password))}*/}
                         <CustomInput
-                            labelText="Title"
+                            labelText="제목"
                             id="title"
                             formControlProps={{
                                 fullWidth: true
@@ -169,12 +151,18 @@ class CreateBoardModal extends React.Component {
                                 value: this.state.title,
                                 onChange: this.handleChange,
                                 required: true,
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <Lock /*className={classes.inputIconsColor}*//>
-                                    </InputAdornment>
-                                )
                             }}
+                        />
+                         <TextField
+                            id="context"
+                            label="내용"
+                            multiline
+                            rows="7"
+                            fullWidth
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            onChange= {this.handleChange}
                         />
                     </DialogContent>
                     {

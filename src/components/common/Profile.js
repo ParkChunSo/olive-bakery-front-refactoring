@@ -25,6 +25,14 @@ class Profile extends Component{
                 <div>
                     <p>도장 개수: {userData.stamp}</p>
                 </div>
+
+                <div>
+                    <p>성별: {userData.male === true ? "남성" : "여성"}</p>
+                </div>
+
+                <div>
+                    <p>나이: {userData.age}대</p>
+                </div>
             </div>
         )
     }

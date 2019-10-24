@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import AdminChart from "./AdminChart"
 import AdminReservation from "./AdminReservation"
@@ -78,50 +74,46 @@ class AdminDashboard extends Component{
         this.getChartDataByYearAndMonth(this.state.selectedYear, this.state.selectedMonth);
     }
 
-    getReservationDataByDate = async (selectDate) =>{
-        const response = await api.getReservationDataByDate(selectDate);
+    getReservationDataByDate = (selectDate) =>{
+        api.getReservationDataByDate(selectDate).then(response =>{
+            this.setState({
+                reservationData: response.data === undefined ? [] : response.data
+            });
+        });    
+    };
+
+    getReservationDataByRange = (startDate, endDate) =>{
+        console.log("getReservationDataByRange");
         
-        if(response === undefined || response === null || response === ""){
-            console.log("값을 받아오는데 문제가 발생했습니다.");
-            return;
-        }
-        this.setState({
-            reservationData: response.map(data=>({...data, checked:'false'}))
+        api.getReservationDataByRange(startDate, endDate).then(response =>{
+            this.setState({
+                reservationData: response.data
+            });
+        })
+    }
+
+    getChartData = () =>{
+        api.getGraphData().then(response =>{
+            const tmpGraph = response.data.map(data => ({date: data.date[0].toString(), totalAve: data.totalAve}));
+            const tmpDetails = response.data.map(data => ({date: data.date[0], totalAve: data.totalAve, byTypes: data.byTypes}));
+            this.setState({
+                graphData: tmpGraph,
+                detailsSalesData: tmpDetails
+            })
         });
     };
 
-    getChartData = async () =>{
-        const response = await api.getGraphData();
-
-        if(response === undefined || response === null || response === ""){
-            console.log("값을 받아오는데 문제가 발생했습니다.");
-            return;
-        }
-
-        this.setState({
-            graphData: response.map(data => ({date: data.date[0].toString(), totalAve: data.totalAve})),
-            detailsSalesData: response.map(data => ({date: data.date[0], totalAve: data.totalAve, byTypes: data.byTypes}))
-        })
-    };
-
     getChartDataByYear = async (year) =>{
-        const response = await api.getGraphDataByYear(year);
-
-        if(response === undefined || response === null || response === ""){
-            console.log("값을 받아오는데 문제가 발생했습니다.");
-            return;
-        }
-
-        this.setState({
-            graphData: response.map(data => ({date: data.date[0].toString() + '-' + data.date[1].toString(), totalAve: data.totalAve})),
-            detailsSalesData: response.map(data => ({date: data.date[0], totalAve: data.totalAve, byTypes: data.byTypes}))
-        })
+        api.getGraphDataByYear(year).then(response =>{
+            this.setState({
+                graphData: response.data.map(data => ({date: data.date[0].toString() + '-' + data.date[1].toString(), totalAve: data.totalAve})),
+                detailsSalesData: response.data.map(data => ({date: data.date[0], totalAve: data.totalAve, byTypes: data.byTypes}))
+            })
+        });
     };
 
     getChartDataByYearAndMonth = (year, month) =>{
         api.getGraphDataByYearAndMonth(year, month).then(response =>{
-            console.log(typeof(response.data));
-            
             this.setState({
                 graphData: response.data === "" ? [] : response.data.map(data => ({date: data.date[0].toString() + '-' + data.date[1].toString() +'-'+ data.date[2].toString(), totalAve: data.totalAve})),
                 detailsSalesData: response.data === "" ? [] : response.data.map(data => ({date: data.date[0], totalAve: data.totalAve, byTypes: data.byTypes}))
@@ -148,11 +140,29 @@ class AdminDashboard extends Component{
         const date = this.convertDate2String(selectedYear, selectedMonth, 1);
         this.getReservationDataByDate(date);
     }
+
+    callBackChart = (year, month, day) => {
+        console.log("callBackChart");
+        
+        let startDate = "", endDate = "";
+        if(month === ""){
+            startDate = this.convertDate2String(year, 1, 1);
+            endDate = this.convertDate2String(year, 12, 31);
+        }else if(day === ""){
+            startDate = this.convertDate2String(year, month, 1);
+            endDate = this.convertDate2String(year, month, 31);
+        }else{
+            startDate = this.convertDate2String(year, month, day);
+            this.getReservationDataByDate(startDate);
+            return;
+        }
+        this.getReservationDataByRange(startDate, endDate);
+    }
     
 
     render(){
-        console.log(this.state.isOpenSalesModal);
-        const {reservationData, selectedYear, selectedMonth, selectedDay} = this.state;
+        console.log("render");
+        const {reservationData, selectedYear, selectedMonth} = this.state;
         return (
             <React.Fragment>
                 <SalesModal
@@ -177,66 +187,12 @@ class AdminDashboard extends Component{
                         <div>
                             <AdminChart
                                 chartData= {this.state.graphData}
+                                callBackChart = {this.callBackChart}
                             />
                         </div>
                     </div>
                     <div>
                         <div className= 'wrapper'>
-                            {/* <div>
-                                <Title
-                                    title="예약확인"
-                                    subTitle="날짜별 예약을 확인합니다."
-                                />
-                            </div> */}
-                            <FormControl variant="outlined" >   
-                                <InputLabel  htmlFor="outlined-age-simple">
-                                    일
-                                </InputLabel>
-                                <Select
-                                value={selectedDay}
-                                onChange={this.handleItemChange}
-                                labelWidth={40}
-                                inputProps={{
-                                    name: 'selectedDay',
-                                    id: 'outlined-age-simple',
-                                }}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={1}>1일</MenuItem>
-                                    <MenuItem value={2}>2일</MenuItem>
-                                    <MenuItem value={3}>3일</MenuItem>
-                                    <MenuItem value={4}>4일</MenuItem>
-                                    <MenuItem value={5}>5일</MenuItem>
-                                    <MenuItem value={6}>6일</MenuItem>
-                                    <MenuItem value={7}>7일</MenuItem>
-                                    <MenuItem value={8}>8일</MenuItem>
-                                    <MenuItem value={9}>9일</MenuItem>
-                                    <MenuItem value={10}>10일</MenuItem>
-                                    <MenuItem value={11}>11일</MenuItem>
-                                    <MenuItem value={12}>12일</MenuItem>
-                                    <MenuItem value={13}>13일</MenuItem>
-                                    <MenuItem value={14}>14일</MenuItem>
-                                    <MenuItem value={15}>15일</MenuItem>
-                                    <MenuItem value={16}>16일</MenuItem>
-                                    <MenuItem value={17}>17일</MenuItem>
-                                    <MenuItem value={18}>18일</MenuItem>
-                                    <MenuItem value={19}>19일</MenuItem>
-                                    <MenuItem value={20}>20일</MenuItem>
-                                    <MenuItem value={21}>21일</MenuItem>
-                                    <MenuItem value={22}>22일</MenuItem>
-                                    <MenuItem value={23}>23일</MenuItem>
-                                    <MenuItem value={24}>24일</MenuItem>
-                                    <MenuItem value={25}>25일</MenuItem>
-                                    <MenuItem value={26}>26일</MenuItem>
-                                    <MenuItem value={27}>27일</MenuItem>
-                                    <MenuItem value={28}>28일</MenuItem>
-                                    <MenuItem value={29}>29일</MenuItem>
-                                    <MenuItem value={30}>30일</MenuItem>
-                                    <MenuItem value={31}>31일</MenuItem>
-                                </Select>
-                            </FormControl>
                             <AdminReservation
                                 reservationData={reservationData}
                             />
