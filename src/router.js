@@ -7,4 +7,4 @@ export { default as AdminBoardPage} from './components/admin-board/AdminBoardPag
 export { default as AdminUsersPage} from './components/admin-user/AdminUsersPage';
 export { default as AdminReservationPage} from './components/admin-reservation/AdminReservationPage';
 export { default as BoardPage} from './components/board/BoardPage';
-export { default as AdminDashboardPage} from './components/admin-dashboard/AdminDashboard';
+export { default as AdminDashboardPage} from './components/admin-dashboard/AdminDashBoardPage';

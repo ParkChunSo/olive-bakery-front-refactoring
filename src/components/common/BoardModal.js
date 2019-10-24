@@ -279,7 +279,7 @@ class BoardModal extends React.Component {
                                                         />
                                                     }
                                                     classes={{ label: classes.label }}
-                                                    label="isNotice"
+                                                    label="공지사항 여부"
                                                 />
                                                 <FormControlLabel
                                                     control={
@@ -293,7 +293,7 @@ class BoardModal extends React.Component {
                                                         />
                                                     }
                                                     classes={{ label: classes.label }}
-                                                    label="isSecret"
+                                                    label="비밀글 여부"
                                                 />
                                             </React.Fragment>
                                     }

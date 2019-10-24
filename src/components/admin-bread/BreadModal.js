@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "../common/Button.jsx";
-import axios from "axios";
+import TextField from '@material-ui/core/TextField';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
@@ -275,43 +275,31 @@ class BreadModal extends React.Component {
                                         )
                                     }}
                                 />
-                                <CustomInput
-                                    labelText="빵 설명"
+                                <TextField
                                     id="description"
-                                    formControlProps={{
-                                        fullWidth: true
-                                    }}
-                                    inputProps={{
-                                        type: "text",
-                                        defaultValue: item.description,
-                                        onChange: this.handleChange,
-                                        required: true,
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <Email /*className={classes.inputIconsColor}*//>
-                                            </InputAdornment>
-                                        )
-                                    }}
+                                    label="간단한 설명"
+                                    multiline
+                                    rows="1"
+                                    fullWidth
+                                    defaultValue= {this.state.description}
+                                    className={classes.textField}
+                                    margin="normal"
+                                    variant="outlined"
+                                    onChange= {this.handleChange}
                                 />
-                                <CustomInput
-                                    labelText="상세설명"
+                                <TextField
                                     id="detailDescription"
-                                    formControlProps={{
-                                        fullWidth: true
-                                    }}
-                                    inputProps={{
-                                        type: "text",
-                                        defaultValue: item.detailDescription,
-                                        multiline: true,
-                                        onChange: this.handleChange,
-                                        required: true,
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <People /*className={classes.inputIconsColor}*//>
-                                            </InputAdornment>
-                                        )
-                                    }}
+                                    label="자세한 설명"
+                                    multiline
+                                    rows="7"
+                                    fullWidth
+                                    defaultValue= {this.state.detailDescription}
+                                    className={classes.textField}
+                                    margin="normal"
+                                    variant="outlined"
+                                    onChange= {this.handleChange}
                                 />
+                               
                                 <div>
                                 {
                                     ingredients.map((ingredient, index) => (

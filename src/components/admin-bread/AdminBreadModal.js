@@ -3,15 +3,13 @@ import CustomInput from "../common/CustomInput.jsx";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "../common/Button.jsx";
-import axios from "axios";
+
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
 import Lock from "@material-ui/icons/LockOutlined";
-import Phone from "@material-ui/icons/Phone";
+import TextField from '@material-ui/core/TextField';
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Check from "@material-ui/icons/Check";
@@ -205,43 +203,31 @@ class AdminBreadModal extends React.Component {
                                 )
                             }}
                         />
-                        <CustomInput
-                            labelText="빵 설명"
+                        <TextField
                             id="description"
-                            formControlProps={{
-                                fullWidth: true
-                            }}
-                            inputProps={{
-                                type: "text",
-                                value: this.state.description,
-                                onChange: this.handleChange,
-                                required: true,
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <Email /*className={classes.inputIconsColor}*//>
-                                    </InputAdornment>
-                                )
-                            }}
+                            label="간단한 설명"
+                            multiline
+                            rows="1"
+                            fullWidth
+                            defaultValue= {this.state.description}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            onChange= {this.handleChange}
                         />
-                        <CustomInput
-                            labelText="상세설명"
+                        <TextField
                             id="detailDescription"
-                            formControlProps={{
-                                fullWidth: true
-                            }}
-                            inputProps={{
-                                type: "text",
-                                value: this.state.detailDescription,
-                                multiline: true,
-                                onChange: this.handleChange,
-                                required: true,
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <People /*className={classes.inputIconsColor}*//>
-                                    </InputAdornment>
-                                )
-                            }}
+                            label="자세한 설명"
+                            multiline
+                            rows="7"
+                            fullWidth
+                            defaultValue= {this.state.detailDescription}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            onChange= {this.handleChange}
                         />
+                        
                         <div>
                         {
                             this.state.ingredients.map((ingredient, index) => (

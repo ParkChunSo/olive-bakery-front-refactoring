@@ -4,9 +4,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import InputAdornment from "@material-ui/core/InputAdornment";
-import People from "@material-ui/icons/People";
-import Lock from "@material-ui/icons/LockOutlined";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Check from "@material-ui/icons/Check";
@@ -122,7 +119,7 @@ class CreateBoardModal extends React.Component {
                                             />
                                         }
                                         classes={{ label: classes.label }}
-                                        label="isNotice"
+                                        label="공지사항 여부"
                                     />
                                     <FormControlLabel
                                         control={
@@ -136,7 +133,7 @@ class CreateBoardModal extends React.Component {
                                             />
                                         }
                                         classes={{ label: classes.label }}
-                                        label="isSecret"
+                                        label="비밀글 여부"
                                     />
                                 </React.Fragment>
                         }

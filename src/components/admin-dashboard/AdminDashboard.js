@@ -7,7 +7,7 @@ import SalesModal from './SalesModal';
 import Button from '../common/Button';
 
 import * as api from "../common/Api"
-
+ 
 
 class AdminDashboard extends Component{
     state={
@@ -16,28 +16,24 @@ class AdminDashboard extends Component{
         selectedItem: {},
         modalOpen: false,        
         selectedYear: 2019,
-        selectedMonth: 1,
+        selectedMonth: 10,
         selectedDay: 1,
         detailsSalesData: [],
         graphData: [],
         isOpenSalesModal: false
     }
 
-    componentDidMount(){
-        this.getChartDataByYearAndMonth(this.state.selectedYear, this.state.selectedMonth);
-        this.getReservationDataByDate(this.state.reservatoinSelectDate);
-    };
-
-    componentWillMount(){
-        const today = new Date();
-        const date = this.convertDate2String(today.getFullYear(), (today.getMonth() + 1), today.getDate())
-
-        this.setState({ 
-            selectedYear: today.getFullYear(),
-            selectedMonth: (today.getMonth() + 1),
-            reservatoinSelectDate: date 
-        });
-    };
+    componentWillReceiveProps(nextProps){
+        console.log("Props 데이터 변경")
+        this.setState({
+            selectedYear: nextProps.todayYear,
+            selectedMonth: nextProps.todayMonth,
+            reservatoinSelectDate : nextProps.today,
+            reservationData: nextProps.monthReservationData,
+            graphData: nextProps.firstGraphData,
+            detailsSalesData: nextProps.firstDetailsSalesData
+        })
+    }
 
     convertDate2String = (year, month, day) =>{
         let date = year.toString();
@@ -136,13 +132,11 @@ class AdminDashboard extends Component{
         }else{
             this.getChartDataByYearAndMonth(selectedYear, selectedMonth);
         }
-
-        const date = this.convertDate2String(selectedYear, selectedMonth, 1);
-        this.getReservationDataByDate(date);
+        this.callBackChart(selectedYear, selectedMonth, "");
     }
 
     callBackChart = (year, month, day) => {
-        console.log("callBackChart");
+        console.log(String(year) +"-"+ String(month) +"-"+ String(day));
         
         let startDate = "", endDate = "";
         if(month === ""){

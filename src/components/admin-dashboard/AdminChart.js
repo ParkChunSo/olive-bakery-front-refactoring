@@ -17,9 +17,6 @@ class AdminChart extends Component{
     componentWillReceiveProps(nextProps){
         const {chartData} = nextProps;
         
-        console.log(chartData);
-        
-
         let data = [['x', '매출']];
         for(let key in chartData){
             data.push([chartData[key].date, chartData[key].totalAve])
@@ -35,7 +32,7 @@ class AdminChart extends Component{
             eventName: "ready",
             callback: ({ chartWrapper, google }) => {
                 const chart = chartWrapper.getChart();
-                google.visualization.events.addListener(chart, "select", e => {     
+                google.visualization.events.addListener(chart, "select", e => {
                     if(chart.getSelection().length !== 0){
                         const select = chart.getSelection()[0].row + 1;
                         const date = this.state.chartData[select][0].split('-');
@@ -53,6 +50,8 @@ class AdminChart extends Component{
     ];
 
     render(){
+        console.log("ChartData render");
+        
         return(
          <div>
              <Chart
