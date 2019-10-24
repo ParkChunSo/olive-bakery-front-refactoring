@@ -58,7 +58,7 @@ class MyPage extends React.Component {
                 userData: response.data
             })
         });
-    }
+    };
 
     toggleFormModal = () => {
         this.setState({
@@ -167,7 +167,7 @@ class MyPage extends React.Component {
                     addAlert={this.props.addAlert}
                     userData= {userData}
                 />
-                <Card>
+                <Card className={classes.left_mypage}>
                     <CardHeader color="primary">
                         <h4 className={classes.cardTitleWhite}>프로필</h4>
                         <p className={classes.cardCategoryWhite}>
@@ -183,6 +183,7 @@ class MyPage extends React.Component {
                         </Button>
                     </CardFooter>
                 </Card>
+                <div className={classes.right_mypage}>
                 <CustomTabs
                     headerColor="primary"
                     tabs={[
@@ -239,6 +240,7 @@ class MyPage extends React.Component {
                         }
                     ]}
                 />
+                </div>
             </React.Fragment>
         );
     }

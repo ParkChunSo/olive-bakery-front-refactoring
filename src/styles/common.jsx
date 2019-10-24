@@ -116,6 +116,14 @@ const common = theme => ({
     carousel: {
         width: '80%'
     },
+    left_mypage:{
+        width: '30%',
+        float: 'left'
+    },
+    right_mypage:{
+        width: '70%',
+        float: 'left'
+    }
 });
 
 export default common;

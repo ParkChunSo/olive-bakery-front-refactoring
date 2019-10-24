@@ -24,7 +24,7 @@ class BreadPage extends React.Component{
                         itemlist={itemlist}
                         tot={tot}
                         CartActions={CartActions}
-                        addAlert={this.props.addAlert}
+                        addAlert={this.addAlert}
                     />
                 </div>
                 <SectionCarousel/>
