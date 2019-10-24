@@ -5,6 +5,9 @@ import AdminReservation from "./AdminReservation"
 import SelectDateBar from './SelectDateBar';
 import SalesModal from './SalesModal';
 import Button from '../common/Button';
+import CustomStyle from '../../styles/common';
+import withStyles from "@material-ui/core/styles/withStyles";
+
 
 import * as api from "../common/Api"
 
@@ -14,14 +17,14 @@ class AdminDashboard extends Component{
         reservatoinSelectDate: "",
         reservationData: [],
         selectedItem: {},
-        modalOpen: false,        
+        modalOpen: false,
         selectedYear: 2019,
         selectedMonth: 1,
         selectedDay: 1,
         detailsSalesData: [],
         graphData: [],
         isOpenSalesModal: false
-    }
+    };
 
     componentDidMount(){
         this.getChartDataByYearAndMonth(this.state.selectedYear, this.state.selectedMonth);
@@ -32,10 +35,10 @@ class AdminDashboard extends Component{
         const today = new Date();
         const date = this.convertDate2String(today.getFullYear(), (today.getMonth() + 1), today.getDate())
 
-        this.setState({ 
+        this.setState({
             selectedYear: today.getFullYear(),
             selectedMonth: (today.getMonth() + 1),
-            reservatoinSelectDate: date 
+            reservatoinSelectDate: date
         });
     };
 
@@ -54,7 +57,7 @@ class AdminDashboard extends Component{
         }
 
         return date;
-    }   
+    };
 
     handleItemChange = (event) =>{
         const selectedDay = event.target.value;
@@ -63,34 +66,34 @@ class AdminDashboard extends Component{
             selectedDay: selectedDay,
             reservatoinSelectDate: this.convertDate2String(this.state.selectedYear, this.state.selectedMonth, selectedDay)
         });
-        
+
         this.getReservationDataByDate(this.convertDate2String(this.state.selectedYear, this.state.selectedMonth, selectedDay))
-    }
+    };
 
     toggleSalesModal = () =>{
         this.setState({
             isOpenSalesModal: !this.state.isOpenSalesModal
-        })
+        });
         this.getChartDataByYearAndMonth(this.state.selectedYear, this.state.selectedMonth);
-    }
+    };
 
     getReservationDataByDate = (selectDate) =>{
         api.getReservationDataByDate(selectDate).then(response =>{
             this.setState({
                 reservationData: response.data === undefined ? [] : response.data
             });
-        });    
+        });
     };
 
     getReservationDataByRange = (startDate, endDate) =>{
         console.log("getReservationDataByRange");
-        
+
         api.getReservationDataByRange(startDate, endDate).then(response =>{
             this.setState({
                 reservationData: response.data
             });
         })
-    }
+    };
 
     getChartData = () =>{
         api.getGraphData().then(response =>{
@@ -139,11 +142,11 @@ class AdminDashboard extends Component{
 
         const date = this.convertDate2String(selectedYear, selectedMonth, 1);
         this.getReservationDataByDate(date);
-    }
+    };
 
     callBackChart = (year, month, day) => {
         console.log("callBackChart");
-        
+
         let startDate = "", endDate = "";
         if(month === ""){
             startDate = this.convertDate2String(year, 1, 1);
@@ -157,12 +160,13 @@ class AdminDashboard extends Component{
             return;
         }
         this.getReservationDataByRange(startDate, endDate);
-    }
-    
+    };
+
 
     render(){
         console.log("render");
         const {reservationData, selectedYear, selectedMonth} = this.state;
+        const {classes} = this.props;
         return (
             <React.Fragment>
                 <SalesModal
@@ -170,7 +174,7 @@ class AdminDashboard extends Component{
                         onClose = {this.toggleSalesModal}
                     />
                 <div>
-                    <div className='chart-div'>
+                    <div className={classes.chart_div}>
                         <div>
                             <div>
                                 <SelectDateBar
@@ -183,7 +187,7 @@ class AdminDashboard extends Component{
                                 <Button onClick = {this.toggleSalesModal}>매출 등록 넣기</Button>
                             </div>
                         </div>
-                        
+
                         <div>
                             <AdminChart
                                 chartData= {this.state.graphData}
@@ -191,22 +195,22 @@ class AdminDashboard extends Component{
                             />
                         </div>
                     </div>
-                    <div>
-                        <div className= 'wrapper'>
+                    <React.Fragment>
+                        <div className= {classes.left_wrapper}>
                             <AdminReservation
                                 reservationData={reservationData}
                             />
                         </div>
-                        
-                        <div className= 'wrapper'>
+
+                        <div className= {classes.right_wrapper}>
                             <p>aaaa</p>
                         </div>
-                    </div>
+                    </React.Fragment>
                 </div>
             </React.Fragment>
         )
     };
 
 }
-export default AdminDashboard;
+export default withStyles(CustomStyle)(AdminDashboard);
 

@@ -16,6 +16,9 @@ import Datetime, {Moment} from "react-datetime";
 import * as api from "../common/Api"
 import CardFooter from "../common/CardFooter.jsx";
 import CustomStyle from "../../styles/common"
+import AddCircleOutline from "@material-ui/icons/AddCircleOutline";
+import RemoveCircleOutline from "@material-ui/icons/RemoveCircleOutline";
+import Cancel from "@material-ui/icons/CancelOutlined"
 
 const style = {
     ...imagesStyles,
@@ -34,15 +37,15 @@ class ShoppingCart extends React.Component {
 
     handleIncrement = (e) => {
         const { CartActions } = this.props;
-        CartActions.increment(e.target.value);
+        CartActions.increment(e.currentTarget.value);
     };
     handleDecrement = (e) => {
         const { CartActions } = this.props;
-        CartActions.descrement(e.target.value);
+        CartActions.decrement(e.currentTarget.value);
     };
     handleDelItem = (e) => {
         const { CartActions } = this.props;
-        CartActions.delItem(e.target.value);
+        CartActions.delItem(e.currentTarget.value);
     };
     postReservation = () => {
         const {timeValid, dayValid, datetime} = this.state;
@@ -91,19 +94,24 @@ class ShoppingCart extends React.Component {
         const { classes, itemlist, tot } = this.props;
         const { handleIncrement, handleDecrement, handleDelItem} = this;
         return (
-            <Card style={{width: "15%", height: "80%", position:"fixed"}}>
+            <Card style={{width: "15%", height:"80%",position:"fixed", overflowY:'auto', overflowX:'hidden'}}>
 
                 <CardBody>
                     <h4 className={classes.cardTitle}>장바구니</h4>
                     <p>원하는 갯수만큼 추가하세요</p>
                     {
                         itemlist.map(item =>
-                            <p key={item.name}>{item.name}
-                                <button value={item.name} onClick={handleIncrement}>증가</button>
+                            <p key={item.name}>{item.name}({item.price*item.count}원)<br/>
+                                <Button color="primary" justIcon simple value={item.name} onClick={handleIncrement}>
+                                    <AddCircleOutline/>
+                                </Button>
                                 {item.count}
-                                <button value={item.name} onClick={handleDecrement}>감소</button>
-                                ({item.price*item.count}원)
-                                <button value={item.name} onClick={handleDelItem}>삭제</button>
+                                <Button color="primary" justIcon simple value={item.name} onClick={handleDecrement}>
+                                    <RemoveCircleOutline/>
+                                </Button>
+                                <Button color="primary" justIcon simple value={item.name} onClick={handleDelItem}>
+                                    <Cancel/>
+                                </Button>
                             </p>
                         )
                     }

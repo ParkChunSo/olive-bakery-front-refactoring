@@ -14,8 +14,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Check from "@material-ui/icons/Check";
 import checkStyles from "../../styles/customCheckboxRadioSwitch";
 import classNames from "classnames";
+import CustomStyle from "../../styles/common";
 
-const styles = {...tableStyle, ...checkStyles};
+const styles = {...tableStyle, ...checkStyles, ...CustomStyle};
 
 function CustomTable({ ...props }) {
   const { classes, tableHead, tableData, tableHeaderColor, type, handleClickOpen, handleChangeCheckbox, isAllCheck, isAdmin } = props;
@@ -27,7 +28,7 @@ function CustomTable({ ...props }) {
             <Table className={classes.table}>
               {tableHead !== undefined ? (
                   <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-                    <TableRow>
+                    <TableRow className={classes.table_row}>
                       {tableHead.map((prop, key) => {
                         return (
                             <TableCell
@@ -54,7 +55,7 @@ function CustomTable({ ...props }) {
                       type ==='comments'
                           ?
                           (
-                              <TableRow key={key}>
+                              <TableRow key={key} className={classes.table_row}>
                                 {prop.map((props, key) => {
                                   return (
                                       <TableCell className={classes.tableCell} key={key}>
@@ -66,7 +67,7 @@ function CustomTable({ ...props }) {
                           )
                           :
                           (
-                              <TableRow key={key}>
+                              <TableRow key={key} className={classes.table_row}>
                                 {
                                   prop.map((props, key) => {
                                         if(prop.length===key+1)
@@ -103,7 +104,7 @@ function CustomTable({ ...props }) {
             <Table className={classes.table}>
               {tableHead !== undefined ? (
                   <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-                    <TableRow>
+                    <TableRow className={classes.table_row}>
                       {tableHead.map((prop, key) => {
                         return (
                             <TableCell
@@ -123,7 +124,7 @@ function CustomTable({ ...props }) {
                       type ==='comments'
                           ?
                           (
-                              <TableRow key={key}>
+                              <TableRow key={key} className={classes.table_row}>
                                 {prop.map((props, key) => {
                                   return (
                                       <TableCell className={classes.tableCell} key={key}>
@@ -135,7 +136,7 @@ function CustomTable({ ...props }) {
                           )
                           :
                           (
-                              <TableRow key={key}>
+                              <TableRow key={key} className={classes.table_row}>
                                 {
                                   prop.map((props, key) => {
                                           return (
