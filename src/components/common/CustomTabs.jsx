@@ -32,14 +32,14 @@ class CustomTabs extends React.Component {
       plainTabs,
       tabs,
       title,
-      rtlActive
+      rtlActive,
     } = this.props;
     const cardTitle = classNames({
       [classes.cardTitle]: true,
       [classes.cardTitleRTL]: rtlActive
     });
     return (
-      <Card plain={plainTabs}>
+        <Card plain={plainTabs}>
         <CardHeader color={headerColor} plain={plainTabs}>
           {title !== undefined ? (
             <div className={cardTitle}>{title}</div>
@@ -114,7 +114,7 @@ CustomTabs.propTypes = {
     })
   ),
   rtlActive: PropTypes.bool,
-  plainTabs: PropTypes.bool
+  plainTabs: PropTypes.bool,
 };
 
 export default withStyles(customTabsStyle)(CustomTabs);

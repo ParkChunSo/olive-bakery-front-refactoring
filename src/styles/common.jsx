@@ -66,7 +66,7 @@ const common = theme => ({
     right: {
         position: 'relative',
         width: '20%',
-        float: 'left'
+        float: 'right'
     },
     cardFooter: {
         marginLeft: 'auto',
@@ -113,6 +113,17 @@ const common = theme => ({
     footer: {
         backgroundColor: theme.palette.background.paper,
     },
+    carousel: {
+        width: '80%'
+    },
+    left_mypage:{
+        width: '30%',
+        float: 'left'
+    },
+    right_mypage:{
+        width: '70%',
+        float: 'left'
+    }
 });
 
 export default common;

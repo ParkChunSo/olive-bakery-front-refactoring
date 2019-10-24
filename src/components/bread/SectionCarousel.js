@@ -12,6 +12,7 @@ import Card from "../common/Card.jsx";
 import "../../styles/scss/material-kit-react.scss";
 
 import * as api from "../common/Api"
+import CustomStyle from "../../styles/common";
 
 class SectionCarousel extends React.Component {
     state= {
@@ -24,8 +25,9 @@ class SectionCarousel extends React.Component {
         let response = api.getAllBreads();
 
         response.then(response => {
+            let bread = response.filter(bread => bread.state==="BEST");
             this.setState({
-                imgs: response.map(bread => ({name: bread.name, url: bread.imageUrl}))
+                imgs: bread.map(bread => ({name: bread.name, url: bread.imageUrl}))
             });
         });
     };
@@ -39,9 +41,7 @@ class SectionCarousel extends React.Component {
             autoplay: true
         };
         return (
-            <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                    <Card>
+                    <Card style= {{width:'80%'}}>
                         <Carousel {...settings}>
                             {
                                 this.state.imgs.map((img,key) => (
@@ -62,9 +62,6 @@ class SectionCarousel extends React.Component {
                             }
                         </Carousel>
                     </Card>
-                </GridItem>
-                {console.log(this.state.imgs[0])}
-            </GridContainer>
         );
     }
 }

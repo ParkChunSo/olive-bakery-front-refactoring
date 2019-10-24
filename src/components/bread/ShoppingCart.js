@@ -33,17 +33,16 @@ class ShoppingCart extends React.Component {
     };
 
     handleIncrement = (e) => {
-        const {increment, itemlist} = this.props;
-        increment(e.target.value);
-        console.log(itemlist);
+        const { CartActions } = this.props;
+        CartActions.increment(e.target.value);
     };
     handleDecrement = (e) => {
-        const {decrement} = this.props;
-        decrement(e.target.value);
+        const { CartActions } = this.props;
+        CartActions.descrement(e.target.value);
     };
     handleDelItem = (e) => {
-        const {delItem} = this.props;
-        delItem(e.target.value);
+        const { CartActions } = this.props;
+        CartActions.delItem(e.target.value);
     };
     postReservation = () => {
         const {timeValid, dayValid, datetime} = this.state;
