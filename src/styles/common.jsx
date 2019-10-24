@@ -72,12 +72,15 @@ const common = theme => ({
         marginLeft: 'auto',
         marginRight: 'auto'
     },
-    wrapper: {
+    left_wrapper: {
         float: 'left',
-        margin: '1cm'
+        width: '70%'
+    },
+    right_wrapper:{
+        float: 'left',
+        width: '30%'
     },
     chart_div: {
-        margin: '1%'
     },
     root: {
         display: 'flex',
@@ -123,6 +126,11 @@ const common = theme => ({
     right_mypage:{
         width: '70%',
         float: 'left'
+    },
+    table_row:{
+        "& hover":{
+            backgroundColor: 'lightyellow'
+        }
     }
 });
 

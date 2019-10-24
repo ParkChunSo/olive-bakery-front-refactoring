@@ -51,6 +51,7 @@ class BreadModal extends React.Component {
     };
 
     toggleUpdateBread = () => {
+        console.log(this.props.item.dayTypes);
         this.setState({
             description: this.props.item.description,
             detailDescription: this.props.item.detailDescription,
@@ -58,7 +59,8 @@ class BreadModal extends React.Component {
             name: this.props.item.name,
             price: this.props.item.price,
             ingredients: this.props.ingredients,
-            isUpdate: !this.state.isUpdate
+            isUpdate: !this.state.isUpdate,
+            days: this.props.item.days
         });
     };
 
@@ -156,6 +158,15 @@ class BreadModal extends React.Component {
             return false;
     };
 
+    handleDayTypesIsChecked = (day) => {
+        if(this.state.days[0]===undefined)
+            return false;
+        if(this.state.days.filter(days=> days===day)[0]!==undefined)
+            return true;
+        else
+            return false;
+    };
+
     render() {
         const {item, isAdmin, classes} = this.props;
         const {isCreating, isUpdate} = this.state;
@@ -169,6 +180,9 @@ class BreadModal extends React.Component {
         let ingredients = this.state.ingredients;
         ingredients = ingredients.map(ingredient => (
             {name: ingredient.name, origin: ingredient.origin, checked: this.handleIngredientIsChecked(ingredient.name, ingredient.origin)}
+        ));
+        let days = this.dayTypes.map(day => (
+            {day: day, checked:this.handleDayTypesIsChecked(day)}
         ));
 
         return (
@@ -374,12 +388,12 @@ class BreadModal extends React.Component {
                                 }
                                 </div>
                                 {
-                                    this.dayTypes.map((day, index) => (
+                                    days.map((day, index) => (
                                         <React.Fragment key={index}>
                                             <FormControlLabel
                                                 control={
                                                     <Checkbox
-                                                        id={day}
+                                                        id={day.day}
                                                         defaultChecked={day.checked}
                                                         onChange={this.handleChangeDayTypes}
                                                         checkedIcon={<Check className={classes.checkedIcon} />}
@@ -388,7 +402,7 @@ class BreadModal extends React.Component {
                                                     />
                                                 }
                                                 classes={{ label: classes.label }}
-                                                label={day}
+                                                label={day.day}
                                             />
                                         </React.Fragment>
                                     ))
